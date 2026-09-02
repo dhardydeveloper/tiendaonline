@@ -1,0 +1,39 @@
+/*fondo web*/
+body {
+    background-color: rgb(161, 161, 161);
+    margin: 0;
+    padding: 0;
+}
+/*header menu*/
+.menu{
+    background-color: rgb(255, 253, 253);
+    display: flex;                          /*Los elementos se colocan normalmente en una fila*/
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;         /*medida del menu*/
+ 
+}
+.logo {
+    position: absolute;
+    left: 80px;
+}
+
+.logo img {
+    width: 60px;
+    height: auto;
+    left: 100px;
+}
+.nav {
+    padding: 15px 20px; 
+}
+.nav a {
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    text-decoration: none;                                  /*elimina el subrayado de los enlaces*/
+    color: #000000;
+    font-size: 18px;
+    margin: 0 15px;
+}
+.nav a:hover {
+    color: #00ff37; /* Cambia el color al pasar el mouse */
+    
+}
