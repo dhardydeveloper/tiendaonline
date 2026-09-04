@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - AURA Perfumes</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Menú -->
+  <header class="menu">
+    <div class="logo">
+      <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Quiénes Somos</a>
+      <a href="productos.html">Productos</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Contenido -->
+  <main>
+    <h1>Registro de Usuario</h1>
+    <form id="formRegistro">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="correo">Correo:</label>
+      <input type="email" id="correo" name="correo" required>
+
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" minlength="4" maxlength="10" required>
+
+      <label for="region">Región:</label>
+      <input type="text" id="region" name="region" required>
+
+      <label for="comuna">Comuna:</label>
+      <input type="text" id="comuna" name="comuna" required>
+
+      <button type="submit">Registrarse</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
+  </footer>
+</body>
+</html>
