@@ -1,59 +1,193 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiénes Somos - AURA Perfumes</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiénes Somos - AURA Perfumes</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Banner */
+    .banner-nosotros {
+      position: relative;
+      height: 400px;
+      background: url('img/banner_perfumes.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner-texto {
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+    }
+    .banner-texto h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .banner-texto p {
+      font-size: 1.2em;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .nosotros section {
+      animation: fadeIn 1.5s ease;
+    }
+
+    /* Valores grid */
+    .valores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+    .valor {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .valor:hover {
+      transform: translateY(-5px);
+    }
+    .valor h3 {
+      color: #d4af37;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+    }
+
+    /* Testimonios */
+    .testimonios {
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 8px;
+      margin-top: 40px;
+    }
+    .testimonios h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .testimonio {
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-    <!-- Menú superior -->
-    <header class="menu">
-        <div class="logo">
-            <a href="index.html">
-                <img src="img/logo_perfume_sin_fondo.png" alt="Logo de la Tienda">
-            </a>
+  <!-- Menú superior -->
+  <header class="menu">
+    <div class="logo">
+      <a href="index.html">
+        <img src="img/logo_perfume_sin_fondo.png" alt="Logo de la Tienda">
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html" class="activo">Quiénes Somos</a>
+      <a href="productos.html">Productos</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Banner de portada -->
+  <section class="banner-nosotros">
+    <div class="banner-texto">
+      <h1>Fragancias que inspiran</h1>
+      <p>Descubre la esencia de AURA Perfumes</p>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <main class="nosotros">
+    <h1>Quiénes Somos</h1>
+
+    <!-- Historia con imagen -->
+    <section class="historia">
+      <h2>Nuestra Historia</h2>
+      <img src="img/historia_perfumes.jpg" alt="Historia de AURA Perfumes" style="width:100%; border-radius:8px; margin-bottom:20px;">
+      <p>
+        En <strong>AURA Perfumes</strong> creemos que cada fragancia es una forma de expresión.  
+        Nacimos con la visión de transformar momentos cotidianos en experiencias memorables,  
+        llevando la elegancia y la modernidad a cada creación.
+      </p>
+      <p>
+        Desde nuestros inicios en Chile, hemos trabajado con pasión para desarrollar aromas que despierten emociones,  
+        inspiren confianza y reflejen la esencia única de cada persona.
+      </p>
+    </section>
+
+    <!-- Misión -->
+    <section class="mision">
+      <h2>Nuestra Misión</h2>
+      <p>
+        Ofrecer <strong>fragancias exclusivas</strong> que acompañen a nuestros clientes en cada etapa de su vida,  
+        fusionando calidad, diseño conceptual y autenticidad.  
+        Queremos que cada perfume sea más que un producto: un símbolo de estilo y personalidad.
+      </p>
+    </section>
+
+    <!-- Valores -->
+    <section class="valores">
+      <h2>Nuestros Valores</h2>
+      <div class="valores-grid">
+        <div class="valor">
+          <h3>Elegancia</h3>
+          <p>Diseños sofisticados que transmiten distinción.</p>
         </div>
-        
-        <nav class="nav">
-            <a href="index.html">Inicio</a>
-            <a href="nosotros.html">Quiénes Somos</a>
-            <a href="productos.html">Productos</a>
-            <a href="blogs.html">Blogs</a>
-            <a href="contacto.html">Contacto</a>
-            <a href="registro.html">Registro</a>
-            <a href="login.html">Login</a>
-        </nav>
-    </header>
+        <div class="valor">
+          <h3>Autenticidad</h3>
+          <p>Fragancias genuinas que reflejan tu esencia.</p>
+        </div>
+        <div class="valor">
+          <h3>Calidad</h3>
+          <p>Ingredientes seleccionados y procesos de excelencia.</p>
+        </div>
+        <div class="valor">
+          <h3>Cercanía</h3>
+          <p>Una relación transparente y cercana con nuestros clientes.</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Contenido principal -->
-    <main class="nosotros">
-        <h1>Quiénes Somos</h1>
-        <section class="historia">
-            <h2>Nuestra Historia</h2>
-            <p>AURA Perfumes nació con la idea de crear fragancias únicas que transmitan emociones y estilo. Desde nuestros inicios en México, hemos buscado combinar elegancia y modernidad en cada producto.</p>
-        </section>
+    <!-- Inspiración -->
+    <section class="inspiracion">
+      <h2>Lo que nos inspira</h2>
+      <p>
+        Cada perfume de AURA es una invitación a descubrir un mundo de sensaciones.  
+        Nos inspira la naturaleza, el arte y las emociones humanas,  
+        para crear fragancias que acompañen tus momentos más importantes.
+      </p>
+    </section>
 
-        <section class="mision">
-            <h2>Misión</h2>
-            <p>Ofrecer perfumes exclusivos que reflejen la personalidad de cada cliente, con calidad y diseño conceptual.</p>
-        </section>
+    <!-- Testimonios -->
+    <section class="testimonios">
+      <h2>Testimonios</h2>
+      <p class="testimonio">“Cada fragancia es un recuerdo eterno.”</p>
+      <p class="testimonio">“AURA Perfumes me acompaña en mis mejores momentos.”</p>
+      <p class="testimonio">“Elegancia y calidad en cada detalle.”</p>
+    </section>
+  </main>
 
-        <section class="valores">
-            <h2>Valores</h2>
-            <ul>
-                <li>✨ Elegancia</li>
-                <li>🌿 Autenticidad</li>
-                <li>💎 Calidad</li>
-                <li>🤝 Cercanía con nuestros clientes</li>
-            </ul>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
-        <p>Síguenos en Instagram y Facebook</p>
-    </footer>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
+    <p>Síguenos en Instagram y Facebook</p>
+  </footer>
 </body>
 </html>

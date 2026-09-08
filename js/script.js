@@ -19,6 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Al cargar la página, recuperar carrito guardado
+  const carritoGuardado = localStorage.getItem("carrito");
+  if (carritoGuardado) {
+    carrito = JSON.parse(carritoGuardado);
+    calcularTotal();
+    mostrarCarrito();
+  }
 });
 
 // =========================
@@ -28,24 +36,30 @@ let carrito = [];
 let total = 0;
 
 function agregarAlCarrito(nombre, precio){
-  carrito.push({ nombre, precio });
-  total += precio;
+  const productoExistente = carrito.find(item => item.nombre === nombre);
+  if(productoExistente){
+    productoExistente.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+  calcularTotal();
   mostrarCarrito();
+  guardarCarrito();
 }
 
 function mostrarCarrito(){
   const lista = document.getElementById("carrito");
   const totalSpan = document.getElementById("total");
 
-  if(!lista || !totalSpan) return; // si no existe el carrito en la página
+  if(!lista || !totalSpan) return;
 
   lista.innerHTML = "";
 
   carrito.forEach((item, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${item.nombre}</span>
-      <span>$${item.precio}</span>
+      <span>${item.nombre} (x${item.cantidad})</span>
+      <span>$${item.precio * item.cantidad}</span>
       <button onclick="eliminarDelCarrito(${index})">❌</button>
     `;
     lista.appendChild(li);
@@ -55,9 +69,29 @@ function mostrarCarrito(){
 }
 
 function eliminarDelCarrito(indice){
-  total -= carrito[indice].precio;
-  carrito.splice(indice, 1);
+  if(carrito[indice].cantidad > 1){
+    carrito[indice].cantidad--;
+  } else {
+    carrito.splice(indice, 1);
+  }
+  calcularTotal();
   mostrarCarrito();
+  guardarCarrito();
+}
+
+function vaciarCarrito(){
+  carrito = [];
+  total = 0;
+  mostrarCarrito();
+  guardarCarrito();
+}
+
+function calcularTotal(){
+  total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+}
+
+function guardarCarrito(){
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 // =========================
