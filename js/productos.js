@@ -214,78 +214,41 @@ const productos = [
 ];
 
 // Busca en el HTML el elemento que tiene el id="productos-container"
-// Este será el lugar donde JavaScript colocará todos los productos.
 const contenedor = document.getElementById("productos-container");
 
-// Recorre uno por uno todos los productos que están dentro
-// del arreglo "productos".
-productos.forEach(producto => {
+// Verifica si estamos en la página de productos
+if (contenedor) {
 
+    // Recorre todos los productos
+    productos.forEach(producto => {
 
-    // Crea un nuevo elemento <div> en el HTML.
-    // Este div será la caja individual de cada producto.
-    const elemento = document.createElement("div");
+        // Crea un nuevo div para el producto
+        const elemento = document.createElement("div");
 
+        // Agrega la clase CSS
+        elemento.classList.add("producto");
 
-    // Le agrega la clase CSS "producto" al div.
-    // Esto permite aplicar los estilos que tengas definidos
-    // para .producto en tu archivo style.css.
-    elemento.classList.add("producto");
+        // Contenido del producto
+        elemento.innerHTML = `
 
+            <a href="producto.html?id=${producto.id}">
 
-    // Define el contenido HTML que tendrá el producto.
-    // Las comillas invertidas ` permiten escribir varias líneas de HTML.
-    elemento.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}">
 
+                <h3>${producto.nombre}</h3>
 
-        <!-- Enlace hacia la página individual del producto -->
+                <p>$${producto.precio.toLocaleString("es-CL")}</p>
 
-        <a href="producto.html?id=${producto.id}">
+            </a>
 
+            <button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio})">
+                Añadir al carrito
+            </button>
 
-            <!-- Imagen del producto -->
-            <!-- ${producto.imagen} obtiene automáticamente
-                 la ruta de la imagen desde el objeto producto -->
+        `;
 
-            <img src="${producto.imagen}" alt="${producto.nombre}">
+        // Agrega el producto al contenedor
+        contenedor.appendChild(elemento);
 
-
-            <!-- Nombre del producto -->
-            <!-- ${producto.nombre} obtiene automáticamente
-                 el nombre desde el objeto producto -->
-
-            <h3>${producto.nombre}</h3>
-
-
-            <!-- Precio del producto -->
-            <!-- ${producto.precio} obtiene el precio.
-                 toLocaleString("es-CL") agrega el formato chileno
-                 para mostrar, por ejemplo: 149.990 -->
-
-            <p>$${producto.precio.toLocaleString("es-CL")}</p>
-
-
-        </a>
-
-
-        <!-- Botón para agregar el producto al carrito -->
-
-        <button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio})">
-
-            Añadir al carrito
-
-        </button>
-
-    `;
-
-
-    // Finalmente agrega el producto que acabamos de crear
-    // dentro del elemento "productos-container".
-    
-    // <div id="productos-container">
-    //     AQUÍ SE COLOCA EL PRODUCTO
-    // </div>
-
-    contenedor.appendChild(elemento);
-
-});
+    });
+}
