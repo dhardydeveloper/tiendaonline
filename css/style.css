@@ -36,28 +36,30 @@ nav.nav a:hover {
 
 .banner-container {
     position: relative;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+    width: 100%;          /* El contenedor ocupa todo el ancho disponible de la pantalla */
+    height: auto;         /* La altura se adapta automáticamente al tamaño de la imagen */
+    overflow: hidden;     /* Oculta cualquier parte de la imagen que pueda salir del contenedor */
 }
 
+
+/* =========================
+   IMÁGENES DEL BANNER
+========================= */
 .banner {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: absolute;   /* Coloca los banners uno encima del otro */
+    top: 0;               /* Coloca el banner en la parte superior */
+    left: 0;              /* Coloca el banner desde el lado izquierdo */
 
-    width: 100%;
-    height: auto;
-
-    object-fit: contain;
-
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    width: 100%;          /* La imagen ocupa todo el ancho del contenedor */
+    height: auto;         /* Mantiene la proporción original de la imagen */
+    object-fit: contain;  /* Muestra la imagen completa sin recortarla */
+    opacity: 0;           /* Hace que el banner esté invisible inicialmente */
+    transition: opacity 0.5s ease; /* Hace suave el cambio entre un banner y otro */
 }
 
 .banner.activo {
-    position: relative;
-    opacity: 1;
+    position: relative;   /* El banner activo ocupa su espacio normal en la página */
+    opacity: 1;           /* Hace visible el banner activo */
 }
 
 
