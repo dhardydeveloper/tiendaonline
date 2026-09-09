@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Menú -->
+
+  <!-- Menú de navegación -->
   <header class="menu">
     <div class="logo">
       <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
@@ -23,24 +24,51 @@
     </nav>
   </header>
 
-  <!-- Contenido -->
-  <main class="form-container">
-    <form id="formLogin" class="form-box">
-      <h1>Iniciar Sesión</h1>
-      <img src="img/logo_perfume_sin_fondo.png" alt="Logo AURA" class="logo-registro">
-      <label for="correo">Correo:</label>
-      <input type="email" id="correo" name="correo" required>
+  <!-- Formulario de Iniciar Sesión con Selector de Rol -->
+  <main class="login-container">
+    <div class="card-login" style="max-width: 400px; margin: 40px auto; padding: 25px; border: 1px solid #ddd; border-radius: 8px; background-color: #ffffff; text-align: center;">
+      <h2 style="margin-bottom: 20px;">Iniciar Sesión</h2>
+      
+      <form id="loginForm">
+        <!-- Selector de Tipo de Usuario / Rol -->
+        <div style="margin-bottom: 15px; text-align: left;">
+          <label for="tipoUsuario" style="font-weight: bold; display: block; margin-bottom: 5px;">Tipo de Usuario:</label>
+          <select id="tipoUsuario" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" required>
+            <option value="cliente">Cliente / Comprador</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
 
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" minlength="4" maxlength="10" required>
+        <!-- Campo Correo / Usuario -->
+        <div style="margin-bottom: 15px; text-align: left;">
+          <label for="correo" style="font-weight: bold; display: block; margin-bottom: 5px;">Correo o Usuario:</label>
+          <input type="text" id="correo" placeholder="Ingrese correo o usuario" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
+        </div>
 
-      <button type="submit">Ingresar</button>
-    </form>
+        <!-- Campo Contraseña -->
+        <div style="margin-bottom: 20px; text-align: left;">
+          <label for="password" style="font-weight: bold; display: block; margin-bottom: 5px;">Contraseña:</label>
+          <input type="password" id="password" placeholder="Ingrese contraseña" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
+        </div>
+
+        <!-- Botón de Ingresar -->
+        <button type="submit" class="btn-ingresar" style="background-color: #d4af37; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px;">Ingresar</button>
+      </form>
+
+      <!-- Instrucciones de acceso de prueba -->
+      <div style="margin-top: 20px; font-size: 13px; background-color: #f8f9fa; padding: 12px; border-radius: 5px; border: 1px solid #eee; text-align: left;">
+        <p style="margin: 0 0 5px 0;"><strong>Datos de prueba:</strong></p>
+        <p style="margin: 3px 0;">👑 <b>Administrador:</b> Selecciona <i>Administrador</i> | Usuario: <code>admin</code> | Clave: <code>admin123</code></p>
+        <p style="margin: 3px 0;">🛒 <b>Comprador:</b> Selecciona <i>Cliente / Comprador</i> | Usa cualquier correo y clave</p>
+      </div>
+
+    </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
+
+  <script src="js/login.js"></script>
 </body>
 </html>

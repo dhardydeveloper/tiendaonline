@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Productos - AURA Perfumes</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos del Panel de Administración */
+    .admin-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #c5a059;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    .admin-nav {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .admin-nav a {
+      text-decoration: none;
+      padding: 8px 16px;
+      background-color: #f4f4f4;
+      color: #333;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .admin-nav a.active, .admin-nav a:hover {
+      background-color: #c5a059;
+      color: #fff;
+    }
+
+    .form-admin-producto {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .form-admin-producto input, .form-admin-producto select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .btn-guardar {
+      grid-column: 1 / -1;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .tabla-productos {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .tabla-productos th, .tabla-productos td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .tabla-productos th {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .btn-accion {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .btn-editar { background-color: #ffc107; color: #000; }
+    .btn-eliminar { background-color: #dc3545; color: #fff; }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENÚ GENERAL -->
+  <header class="menu">
+    <div class="logo">
+      <a href="index.html">
+        <img src="img/logo_perfume_sin_fondo.png" alt="AURA Perfumes">
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="#" id="btn-cerrar-sesion" style="color: #ff4d4d; font-weight: bold;">Cerrar Sesión</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PANEL DE ADMINISTRACIÓN -->
+  <main class="admin-container">
+    <div class="admin-header">
+      <h2>Panel de Control - Administrador</h2>
+      <span style="color: #666;">Bienvenido, Admin</span>
+    </div>
+
+    <!-- Navegación entre tablas del Administrador -->
+    <div class="admin-nav">
+      <a href="admin_productos.html" class="active">📦 Productos</a>
+      <a href="admin_roles.html">🛡️ Roles</a>
+      <a href="admin_usuarios.html">👥 Usuarios</a>
+    </div>
+
+    <h3>Añadir Nuevo Producto</h3>
+    <form class="form-admin-producto" id="formProducto">
+      <input type="text" placeholder="Nombre del Producto" required>
+      <input type="text" placeholder="Marca" required>
+      <input type="number" placeholder="Precio ($)" required>
+      <input type="text" placeholder="Ruta de Imagen (img/ejemplo.jpg)" required>
+      <button type="submit" class="btn-guardar">➕ Guardar Producto</button>
+    </form>
+
+    <h3>Inventario de Productos</h3>
+    <table class="tabla-productos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Marca</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-body-productos">
+        <tr>
+          <td>1</td>
+          <td>Perfume Elegance Gold</td>
+          <td>AURA</td>
+          <td>$45.000</td>
+          <td>
+            <button class="btn-accion btn-editar">Editar</button>
+            <button class="btn-accion btn-eliminar">Eliminar</button>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Eau de Parfum Noir</td>
+          <td>AURA</td>
+          <td>$52.000</td>
+          <td>
+            <button class="btn-accion btn-editar">Editar</button>
+            <button class="btn-accion btn-eliminar">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 AURA Perfumes - Panel de Administración</p>
+  </footer>
+
+  <script>
+    // Control de seguridad y cierre de sesión
+    document.addEventListener('DOMContentLoaded', () => {
+      const userRole = localStorage.getItem('userRole');
+      
+      // Si no es admin, lo redirige al login
+      if (userRole !== 'admin') {
+        alert('Acceso denegado. Debe iniciar sesión como Administrador.');
+        window.location.href = 'login.html';
+      }
+
+      document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        alert('Sesión cerrada correctamente.');
+        window.location.href = 'login.html';
+      });
+    });
+  </script>
+
+</body>
+
+</html>
