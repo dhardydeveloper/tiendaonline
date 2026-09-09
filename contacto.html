@@ -16,26 +16,36 @@
       <a href="nosotros.html">Quiénes Somos</a>
       <a href="productos.html">Productos</a>
       <a href="blogs.html">Blogs</a>
-      <a href="contacto.html">Contacto</a>
+      <a href="contacto.html" class="activo">Contacto</a>
       <a href="registro.html">Registro</a>
       <a href="login.html">Login</a>
     </nav>
   </header>
 
   <main>
-    <h1>Contáctanos</h1>
-    <form id="formContacto">
-      <label>Nombre:</label>
-      <input type="text" required>
-      
-      <label>Correo:</label>
-      <input type="email" required>
-      
-      <label>Mensaje:</label>
-      <textarea maxlength="500" required></textarea>
-      
-      <button type="submit">Enviar</button>
-    </form>
+    <!-- Banner superior -->
+    <section class="banner-contacto">
+      <div class="banner-texto">
+        <h1>Contáctanos</h1>
+        <p>Queremos escucharte</p>
+      </div>
+    </section>
+
+    <!-- Formulario -->
+    <section class="contacto-container">
+      <form id="formContacto" class="contacto-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+        
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+        
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" maxlength="500" placeholder="Escribe tu mensaje..." required></textarea>
+        
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
   </main>
 
   <footer>
