@@ -43,7 +43,7 @@ nav.nav a:hover {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height:100%;
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -54,11 +54,7 @@ nav.nav a:hover {
 }
 
 
-.banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
 
 .banner-texto {
   position: absolute;
@@ -394,34 +390,23 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* =========================================
    DETALLE DEL PRODUCTO
 ========================================= */
 
 .detalle-producto {
+    width: 90%;
     max-width: 1200px;
     margin: 60px auto;
-    padding: 40px;
     display: flex;
-    gap: 80px;
     align-items: center;
-    background-color: #ffffff;
+    gap: 80px;
+    min-height: 550px;
 }
 
 
 /* =========================================
-   IMAGEN
+   IMAGEN DEL PRODUCTO
 ========================================= */
 
 .detalle-imagen {
@@ -431,70 +416,68 @@ footer {
     align-items: center;
 }
 
-
 .detalle-imagen img {
     width: 100%;
-    max-width: 500px;
-    height: 550px;
+    max-width: 450px;
+    height: 500px;
     object-fit: contain;
 }
 
 
 /* =========================================
-   INFORMACIÓN
+   INFORMACIÓN DEL PRODUCTO
 ========================================= */
 
 .detalle-info {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 
+/* Marca */
 .detalle-marca {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: #888;
-    margin-bottom: 15px;
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 10px;
 }
 
 
+/* Nombre */
 .detalle-info h1 {
-    font-size: 38px;
+    font-size: 36px;
     line-height: 1.2;
-    color: #222;
     margin: 0 0 15px 0;
+    color: #222;
 }
 
 
+/* Categoría */
 .detalle-categoria {
     font-size: 15px;
-    color: #777;
-    margin-bottom: 25px;
+    color: #888;
+    margin-bottom: 20px;
 }
 
 
-/* =========================================
-   PRECIO
-========================================= */
-
+/* Precio */
 .detalle-precio {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: bold;
-    color: #111;
+    color: #000;
     margin-bottom: 25px;
 }
 
 
-/* =========================================
-   DESCRIPCIÓN
-========================================= */
+/* Descripción */
 
 .detalle-descripcion {
     font-size: 17px;
     line-height: 1.7;
     color: #555;
+    max-width: 550px;
     margin-bottom: 30px;
-
 }
 
 
@@ -507,84 +490,71 @@ footer {
     align-items: center;
     gap: 15px;
     margin-bottom: 25px;
-
 }
-
 
 .cantidad label {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: bold;
 }
-
 
 .cantidad input {
     width: 60px;
     padding: 10px;
+    font-size: 16px;
+    text-align: center;
     border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
 }
 
 
 /* =========================================
-   BOTÓN CARRITO
+   BOTÓN AÑADIR AL CARRITO
 ========================================= */
 
 .boton-carrito {
-    width: 100%;
-    max-width: 350px;
-    padding: 16px 25px;
-    border: none;
-    border-radius: 6px;
-    background-color: #111;
+    padding: 15px 35px;
+    background-color: #000;
     color: white;
+    border: none;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-
 .boton-carrito:hover {
     background-color: #333;
+    transform: translateY(-2px);
 }
 
 
 /* =========================================
-   VOLVER
+   VOLVER A PRODUCTOS
 ========================================= */
 
 .volver-productos {
-
-    display: block;
     margin-top: 25px;
     color: #555;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
 }
-
 
 .volver-productos:hover {
     text-decoration: underline;
 }
 
 
-/* =========================================
-   PRODUCTO NO ENCONTRADO
-========================================= */
-
-.producto-no-encontrado {
-    text-align: center;
-    width: 100%;
-}
 
 
-.producto-no-encontrado h1 {
-    font-size: 35px;
-}
 
 
-.producto-no-encontrado a {
-    color: #111;
-}
+
+
+
+
+
+
+
+
+
 
