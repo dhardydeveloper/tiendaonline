@@ -6,15 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Usuarios - AURA Perfumes</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Estilos del Panel de Administración */
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
     .admin-container {
       max-width: 1100px;
       margin: 40px auto;
-      padding: 20px;
+      padding: 30px;
       background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
 
     .admin-header {
@@ -26,93 +31,178 @@
       margin-bottom: 25px;
     }
 
+    .admin-header h2 {
+      margin: 0;
+      color: #111;
+      font-size: 24px;
+    }
+
     .admin-nav {
       display: flex;
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 12px;
+      margin-bottom: 30px;
     }
 
     .admin-nav a {
       text-decoration: none;
-      padding: 8px 16px;
-      background-color: #f4f4f4;
-      color: #333;
-      border-radius: 5px;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      color: #555;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
       font-weight: 600;
+      font-size: 14px;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .admin-nav a.active, .admin-nav a:hover {
-      background-color: #c5a059;
-      color: #fff;
+      background-color: #111111;
+      color: #c5a059;
+      border-color: #111111;
     }
 
-    .form-admin-usuario {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      background: #f9f9f9;
-      padding: 20px;
+    .card-seccion {
+      background: #fafafa;
+      border: 1px solid #eaeaea;
+      padding: 25px;
       border-radius: 8px;
       margin-bottom: 30px;
     }
 
+    .card-seccion h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #222;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-admin-usuario {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+    }
+
     .form-admin-usuario input, .form-admin-usuario select {
-      padding: 10px;
+      padding: 11px 14px;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 100%;
-      box-sizing: border-box;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      background-color: #fff;
+    }
+
+    .form-admin-usuario input:focus, .form-admin-usuario select:focus {
+      border-color: #c5a059;
     }
 
     .btn-guardar {
       grid-column: 1 / -1;
-      background-color: #28a745;
-      color: white;
+      background-color: #c5a059;
+      color: #ffffff;
       border: none;
-      padding: 12px;
+      padding: 13px;
       font-weight: bold;
-      border-radius: 5px;
+      font-size: 15px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 5px;
+    }
+
+    .btn-guardar:hover {
+      background-color: #a38241;
     }
 
     .tabla-usuarios {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       margin-top: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #eaeaea;
     }
 
     .tabla-usuarios th, .tabla-usuarios td {
-      border: 1px solid #ddd;
-      padding: 12px;
+      padding: 14px 16px;
       text-align: left;
+      font-size: 14px;
     }
 
     .tabla-usuarios th {
+      background-color: #111111;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .tabla-usuarios tr:nth-child(even) {
+      background-color: #fcfcfc;
+    }
+
+    .tabla-usuarios tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .tabla-usuarios td {
+      border-bottom: 1px solid #eee;
+      color: #333;
+    }
+
+    .badge-rol-admin {
+      display: inline-block;
+      padding: 4px 10px;
       background-color: #111;
-      color: #fff;
-    }
-
-    .badge-rol {
-      padding: 4px 8px;
-      border-radius: 4px;
+      color: #c5a059;
+      border-radius: 20px;
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 600;
     }
 
-    .badge-admin { background-color: #c5a059; color: #fff; }
-    .badge-cliente { background-color: #e2e3e5; color: #383d41; }
+    .badge-rol-cliente {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #e2e8f0;
+      color: #334155;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
 
     .btn-accion {
-      padding: 6px 12px;
+      padding: 7px 14px;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: opacity 0.2s;
     }
 
-    .btn-editar { background-color: #ffc107; color: #000; }
-    .btn-eliminar { background-color: #dc3545; color: #fff; }
+    .btn-accion:hover {
+      opacity: 0.85;
+    }
+
+    .btn-editar { background-color: #f0ad4e; color: #fff; margin-right: 5px; }
+    .btn-eliminar { background-color: #d9534f; color: #fff; }
   </style>
 </head>
 
@@ -128,6 +218,7 @@
     <nav class="nav">
       <a href="index.html">Inicio</a>
       <a href="productos.html">Productos</a>
+      <a href="admin.html">Panel Admin</a>
       <a href="#" id="btn-cerrar-sesion" style="color: #ff4d4d; font-weight: bold;">Cerrar Sesión</a>
     </nav>
   </header>
@@ -136,72 +227,80 @@
   <main class="admin-container">
     <div class="admin-header">
       <h2>Panel de Control - Administrador</h2>
-      <span style="color: #666;">Bienvenido, Admin</span>
+      <span style="color: #666; font-size: 14px;"><i class="fa-solid fa-circle-user"></i> Bienvenido, Admin</span>
     </div>
 
-    <!-- Navegación entre tablas del Administrador -->
+    <!-- Navegación entre pestañas -->
     <div class="admin-nav">
-      <a href="admin_productos.html">📦 Productos</a>
-      <a href="admin_roles.html">🛡️ Roles</a>
-      <a href="admin_usuarios.html" class="active">👥 Usuarios</a>
+      <a href="admin_productos.html"><i class="fa-solid fa-box"></i> Productos</a>
+      <a href="admin_roles.html"><i class="fa-solid fa-shield-halved"></i> Roles</a>
+      <a href="admin_usuarios.html" class="active"><i class="fa-solid fa-users"></i> Usuarios</a>
     </div>
 
-    <h3>Registrar Nuevo Usuario</h3>
-    <form class="form-admin-usuario" id="formUsuario">
-      <input type="text" placeholder="Nombre completo" required>
-      <input type="email" placeholder="Correo electrónico" required>
-      <input type="password" placeholder="Contraseña" required>
-      <select required>
-        <option value="cliente">Cliente / Comprador</option>
-        <option value="admin">Administrador</option>
-      </select>
-      <button type="submit" class="btn-guardar">➕ Crear Usuario</button>
-    </form>
+    <!-- FORMULARIO NUEVO USUARIO -->
+    <div class="card-seccion">
+      <h3><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario</h3>
+      <form class="form-admin-usuario" id="formUsuario">
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" placeholder="Ej. Alexandra Sujheil" required>
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" placeholder="correo@ejemplo.com" required>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <div class="form-group">
+          <label>Rol de Usuario</label>
+          <select required>
+            <option value="cliente">Cliente / Comprador</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-guardar"><i class="fa-solid fa-user-check"></i> Crear Usuario</button>
+      </form>
+    </div>
 
-    <h3>Lista de Usuarios Registrados</h3>
-    <table class="tabla-usuarios">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Rol</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Administrador General</td>
-          <td>admin@aura.com</td>
-          <td><span class="badge-rol badge-admin">Administrador</span></td>
-          <td>
-            <button class="btn-accion btn-editar">Editar</button>
-            <button class="btn-accion btn-eliminar">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>María González</td>
-          <td>maria@gmail.com</td>
-          <td><span class="badge-rol badge-cliente">Cliente</span></td>
-          <td>
-            <button class="btn-accion btn-editar">Editar</button>
-            <button class="btn-accion btn-eliminar">Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Carlos Pérez</td>
-          <td>carlos.perez@hotmail.com</td>
-          <td><span class="badge-rol badge-cliente">Cliente</span></td>
-          <td>
-            <button class="btn-accion btn-editar">Editar</button>
-            <button class="btn-accion btn-eliminar">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- TABLA LISTA DE USUARIOS -->
+    <div class="card-seccion" style="background: transparent; border: none; padding: 0;">
+      <h3 style="margin-bottom: 15px;"><i class="fa-solid fa-address-book" style="color: #c5a059;"></i> Lista de Usuarios Registrados</h3>
+      <table class="tabla-usuarios">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th style="text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><b>Administrador General</b></td>
+            <td>admin@aura.com</td>
+            <td><span class="badge-rol-admin"><i class="fa-solid fa-user-shield"></i> Administrador</span></td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>Cliente Prueba</b></td>
+            <td>cliente@gmail.com</td>
+            <td><span class="badge-rol-cliente"><i class="fa-solid fa-user"></i> Cliente</span></td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </main>
 
   <footer>
@@ -209,11 +308,9 @@
   </footer>
 
   <script>
-    // Control de seguridad y cierre de sesión
     document.addEventListener('DOMContentLoaded', () => {
       const userRole = localStorage.getItem('userRole');
       
-      // Si no es admin, lo redirige al login
       if (userRole !== 'admin') {
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
         window.location.href = 'login.html';
