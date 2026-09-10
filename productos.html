@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Productos - AURA Perfumes</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- 1. ICONOS DE FONT AWESOME (AÑADIDO AQUÍ) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <!-- Menú -->
@@ -14,14 +14,19 @@
     <div class="logo">
       <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
     </div>
+    <!-- 2. NAV MODIFICADO PARA ADAPTARSE AL ROL -->
     <nav class="nav">
       <a href="index.html">Inicio</a>
       <a href="nosotros.html">Quiénes Somos</a>
       <a href="productos.html">Productos</a>
       <a href="blogs.html">Blogs</a>
       <a href="contacto.html">Contacto</a>
-      <a href="registro.html">Registro</a>
-      <a href="login.html">Login</a>
+      
+      <!-- Este contenedor cambiará según el inicio de sesión -->
+      <span id="menu-usuario">
+        <a href="registro.html">Registro</a>
+        <a href="login.html">Login</a>
+      </span>
     </nav>
   </header>
 
@@ -36,6 +41,50 @@
   <!-- Script JS -->
   <script src="js/script.js"></script>
   <script src="js/productos.js"></script>
-<script src="js/script.js"></script>
+
+  <!-- 3. SCRIPT PARA EVALUAR EL ROL Y MOSTRAR EL CARRITO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const userRole = localStorage.getItem('userRole'); // Detecta 'cliente', 'admin' o null
+      const contenedorUsuario = document.getElementById('menu-usuario');
+
+      if (!contenedorUsuario) return;
+
+      if (userRole === 'cliente') {
+        // Muestra el Carrito + opción Cerrar Sesión para Comprador
+        contenedorUsuario.innerHTML = `
+          <a href="carrito.html" style="color: #c5a059; font-size: 1.2rem; margin-left: 10px;" title="Mi Carrito de Compras">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+          <a href="#" id="btn-logout" style="color: #ff4d4d; font-weight: bold; margin-left: 10px;">Cerrar Sesión</a>
+        `;
+      } else if (userRole === 'admin') {
+        // Muestra Admin + Carrito + Cerrar Sesión para Administrador
+        contenedorUsuario.innerHTML = `
+          <a href="admin.html" style="color: #c5a059; font-weight: bold;">Admin</a>
+          <a href="carrito.html" style="color: #c5a059; font-size: 1.2rem; margin-left: 10px;" title="Ver Carrito">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+          <a href="#" id="btn-logout" style="color: #ff4d4d; font-weight: bold; margin-left: 10px;">Cerrar Sesión</a>
+        `;
+      } else {
+        // Muestra opciones por defecto para visitantes
+        contenedorUsuario.innerHTML = `
+          <a href="registro.html">Registro</a>
+          <a href="login.html">Login</a>
+        `;
+      }
+
+      // Lógica de Cierre de Sesión
+      document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'btn-logout') {
+          e.preventDefault();
+          localStorage.removeItem('userRole');
+          alert('Has cerrado sesión correctamente.');
+          window.location.href = 'login.html';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
