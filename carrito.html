@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras - AURA Perfumes</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .cart-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .cart-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cart-header {
+      border-bottom: 2px solid #c5a059;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cart-table th, .cart-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-table th {
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    .img-cart {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .btn-cantidad {
+      padding: 3px 8px;
+      background: #eee;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .btn-eliminar {
+      color: #dc3545;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .resumen-compra {
+      background: #fdfdfd;
+      border: 1px solid #e2e2e2;
+      padding: 20px;
+      border-radius: 8px;
+      height: fit-content;
+    }
+
+    .resumen-linea {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .total-linea {
+      border-top: 2px dashed #ccc;
+      padding-top: 12px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #111;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: #c5a059;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+
+    .btn-checkout:hover {
+      background: #a38241;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 40px;
+      color: #777;
+    }
+
+    .cart-empty i {
+      font-size: 50px;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    /* Estilos Modal de Pago */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center; align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 450px;
+      width: 90%;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENÚ GENERAL -->
+  <header class="menu">
+    <div class="logo">
+      <a href="index.html">
+        <img src="img/logo_perfume_sin_fondo.png" alt="AURA Perfumes">
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="quienes_somos.html">Quiénes Somos</a>
+      <a href="productos.html">Productos</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="registro.html">Registro</a>
+      <a href="login.html">Login</a>
+      <a href="admin.html">Admin</a>
+      <a href="carrito.html" style="color: #c5a059; font-size: 1.1rem;"><i class="fa-solid fa-cart-shopping"></i></a>
+    </nav>
+  </header>
+
+  <main class="cart-container">
+    <!-- SECCIÓN IZQUIERDA: LISTA DE PRODUCTOS -->
+    <div>
+      <div class="cart-header">
+        <h2><i class="fa-solid fa-cart-shopping"></i> Tu Carrito de Compras</h2>
+      </div>
+
+      <div id="contenedor-items">
+        <!-- Se rellena dinámicamente con JS -->
+      </div>
+    </div>
+
+    <!-- SECCIÓN DERECHA: RESUMEN DE PAGO -->
+    <div class="resumen-compra">
+      <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">Resumen del Pedido</h3>
+      <div class="resumen-linea">
+        <span>Subtotal:</span>
+        <span id="resumen-subtotal">$0</span>
+      </div>
+      <div class="resumen-linea">
+        <span>Envío:</span>
+        <span style="color: #28a745; font-weight: bold;">GRATIS</span>
+      </div>
+      <div class="resumen-linea total-linea">
+        <span>Total:</span>
+        <span id="resumen-total" style="color: #c5a059;">$0</span>
+      </div>
+
+      <button class="btn-checkout" onclick="abrirModalPago()"><i class="fa-solid fa-lock"></i> Finalizar Compra</button>
+      <a href="productos.html" style="display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; font-size: 13px;">&larr; Seguir Comprando</a>
+    </div>
+  </main>
+
+  <!-- MODAL FORMULARIO DE PAGO -->
+  <div class="modal" id="modalPago">
+    <div class="modal-content">
+      <h3 style="margin-top:0; color: #111;"><i class="fa-solid fa-credit-card"></i> Datos de Envío y Pago</h3>
+      <form id="formPago" onsubmit="procesarCompra(event)">
+        <label>Nombre Completo</label>
+        <input type="text" placeholder="Ej. Juan Pérez" required>
+
+        <label>Dirección de Envío</label>
+        <input type="text" placeholder="Ej. Av. Providencia 1234, Santiago" required>
+
+        <label>Tarjeta de Crédito / Débito</label>
+        <input type="text" placeholder="**** **** **** ****" maxlength="16" required>
+
+        <div style="display: flex; gap: 10px;">
+          <div>
+            <label>Vencimiento</label>
+            <input type="text" placeholder="MM/AA" maxlength="5" required>
+          </div>
+          <div>
+            <label>CVV</label>
+            <input type="password" placeholder="123" maxlength="3" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-checkout">Pagar Ahora</button>
+        <button type="button" onclick="cerrarModalPago()" style="width: 100%; background: #eee; border: none; padding: 10px; margin-top: 8px; cursor: pointer; border-radius: 4px;">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Productos demostrativos si el carrito está vacío por primera vez
+    const productosEjemplo = [
+      { id: 1, nombre: "Dior Sauvage Eau de Parfum", precio: 129900, cantidad: 1, imagen: "img/sauvage.jpg" },
+      { id: 2, nombre: "Versace Eros Eau de Toilette", precio: 89900, cantidad: 1, imagen: "img/versace.jpg" }
+    ];
+
+    // Cargar carrito desde localStorage o usar el ejemplo
+    function obtenerCarrito() {
+      const carritoGuardado = localStorage.getItem('carritoAURA');
+      if (!carritoGuardado) {
+        localStorage.setItem('carritoAURA', JSON.stringify(productosEjemplo));
+        return productosEjemplo;
+      }
+      return JSON.parse(carritoGuardado);
+    }
+
+    function renderizarCarrito() {
+      const carrito = obtenerCarrito();
+      const contenedor = document.getElementById('contenedor-items');
+      
+      if (carrito.length === 0) {
+        contenedor.innerHTML = `
+          <div class="cart-empty">
+            <i class="fa-solid fa-cart-flatbed"></i>
+            <h3>Tu carrito está vacío</h3>
+            <p>Explora nuestro catálogo y añade tus fragancias favoritas.</p>
+          </div>
+        `;
+        actualizarTotales(0);
+        return;
+      }
+
+      let html = `
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cant.</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      let total = 0;
+
+      carrito.forEach((item, index) => {
+        const subtotal = item.precio * item.cantidad;
+        total += subtotal;
+
+        html += `
+          <tr>
+            <td>
+              <strong>${item.nombre}</strong>
+            </td>
+            <td>$${item.precio.toLocaleString('es-CL')}</td>
+            <td>
+              <button class="btn-cantidad" onclick="cambiarCantidad(${index}, -1)">-</button>
+              <span style="margin: 0 8px; font-weight: bold;">${item.cantidad}</span>
+              <button class="btn-cantidad" onclick="cambiarCantidad(${index}, 1)">+</button>
+            </td>
+            <td style="font-weight: bold;">$${subtotal.toLocaleString('es-CL')}</td>
+            <td>
+              <button class="btn-eliminar" onclick="eliminarItem(${index})" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      contenedor.innerHTML = html;
+      actualizarTotales(total);
+    }
+
+    function cambiarCantidad(index, cambio) {
+      let carrito = obtenerCarrito();
+      carrito[index].cantidad += cambio;
+
+      if (carrito[index].cantidad <= 0) {
+        carrito.splice(index, 1);
+      }
+
+      localStorage.setItem('carritoAURA', JSON.stringify(carrito));
+      renderizarCarrito();
+    }
+
+    function eliminarItem(index) {
+      let carrito = obtenerCarrito();
+      carrito.splice(index, 1);
+      localStorage.setItem('carritoAURA', JSON.stringify(carrito));
+      renderizarCarrito();
+    }
+
+    function actualizarTotales(total) {
+      document.getElementById('resumen-subtotal').innerText = '$' + total.toLocaleString('es-CL');
+      document.getElementById('resumen-total').innerText = '$' + total.toLocaleString('es-CL');
+    }
+
+    function abrirModalPago() {
+      const carrito = obtenerCarrito();
+      if (carrito.length === 0) {
+        alert('Tu carrito está vacío. Agrega productos antes de realizar la compra.');
+        return;
+      }
+      document.getElementById('modalPago').style.display = 'flex';
+    }
+
+    function cerrarModalPago() {
+      document.getElementById('modalPago').style.display = 'none';
+    }
+
+    function procesarCompra(e) {
+      e.preventDefault();
+      alert('¡Compra realizada con éxito! Recibirás un correo de confirmación con los detalles de tu pedido.');
+      localStorage.removeItem('carritoAURA');
+      cerrarModalPago();
+      renderizarCarrito();
+    }
+
+    document.addEventListener('DOMContentLoaded', renderizarCarrito);
+  </script>
+</body>
+
+</html>
