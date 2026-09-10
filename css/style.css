@@ -30,27 +30,36 @@ nav.nav a:hover {
   color: #fff;
 }
 
-/* Banner */
+/* =========================
+   BANNER PRINCIPAL
+========================= */
+
 .banner-container {
     position: relative;
-    width: 100%;
-    height: 500px; /* ajusta según el tamaño de tu banner */
-    overflow: hidden;
+    width: 100%;          /* El contenedor ocupa todo el ancho disponible de la pantalla */
+    height: auto;         /* La altura se adapta automáticamente al tamaño de la imagen */
+    overflow: hidden;     /* Oculta cualquier parte de la imagen que pueda salir del contenedor */
 }
 
+
+/* =========================
+   IMÁGENES DEL BANNER
+========================= */
 .banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height:100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    position: absolute;   /* Coloca los banners uno encima del otro */
+    top: 0;               /* Coloca el banner en la parte superior */
+    left: 0;              /* Coloca el banner desde el lado izquierdo */
+
+    width: 100%;          /* La imagen ocupa todo el ancho del contenedor */
+    height: auto;         /* Mantiene la proporción original de la imagen */
+    object-fit: contain;  /* Muestra la imagen completa sin recortarla */
+    opacity: 0;           /* Hace que el banner esté invisible inicialmente */
+    transition: opacity 0.5s ease; /* Hace suave el cambio entre un banner y otro */
 }
 
 .banner.activo {
-    opacity: 1;
+    position: relative;   /* El banner activo ocupa su espacio normal en la página */
+    opacity: 1;           /* Hace visible el banner activo */
 }
 
 
@@ -192,8 +201,15 @@ nav.nav a:hover {
 
 /* Zoom de imagen */
 
-.producto:hover > img {
+.producto:hover img {
     transform: scale(1.06);
+}
+/*agrega una transición:*/
+.producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
 }
 
 
@@ -215,6 +231,20 @@ button {
 button:hover {
   background-color: #000;
   color: #fff;
+}
+
+
+/*session destacados*/
+.destacados {
+    padding: 50px 20px;
+    background-color: #fffafc;
+}
+
+.destacados h2 {
+    text-align: center;
+    color: #d4af37;
+    font-size: 30px;
+    margin-bottom: 30px;
 }
 
 /* Carrito */
@@ -388,20 +418,23 @@ footer {
 
 
 
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 /* =========================================
    DETALLE DEL PRODUCTO
 ========================================= */
 
 .detalle-producto {
     width: 90%;
-    max-width: 1200px;
-    margin: 60px auto;
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    min-height: 550px;
+    max-width: 1200px;     /* Ancho máximo de 1200px */
+    margin: 60px auto;    /* Margen superior/inferior de 60px y centrado horizontal */
+    display: flex;        /* Activa Flexbox para ordenar cosas unas a izquierdas y otras a derecha */
+    align-items: center;  /* Centra verticalmente los elementos */
+    gap: 80px;            /* Espacio entre imagen e información */
+    min-height: 550px;    /* Altura mínima de 550px */
 }
 
 
@@ -410,17 +443,17 @@ footer {
 ========================================= */
 
 .detalle-imagen {
-    width: 50%;
+    width: 50%;                 /* Ocupa la mitad del contenedor */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;    /* Centra la imagen horizontalmente */
+    align-items: center;        /* Centra la imagen verticalmente */
 }
 
 .detalle-imagen img {
     width: 100%;
     max-width: 450px;
     height: 500px;
-    object-fit: contain;
+    object-fit: contain;        /* Mantiene las proporciones */
 }
 
 
@@ -440,14 +473,14 @@ footer {
 .detalle-marca {
     font-size: 16px;
     color: #777;
-    margin-bottom: 10px;
+    margin-bottom: 10px;    /* Espacio inferior */
 }
 
 
 /* Nombre */
 .detalle-info h1 {
     font-size: 36px;
-    line-height: 1.2;
+    line-height: 1.2;      /* Altura entre líneas */
     margin: 0 0 15px 0;
     color: #222;
 }
@@ -512,13 +545,13 @@ footer {
 ========================================= */
 
 .boton-carrito {
-    padding: 15px 35px;
+    padding: 15px 35px;           /* Espacio interno */
     background-color: #000;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px;         /* Bordes redondeados */
     font-size: 16px;
-    cursor: pointer;
+    cursor: pointer;           /* Cursor de mano */
     transition: 0.3s;
 }
 
@@ -558,3 +591,86 @@ footer {
 
 
 
+
+
+
+
+/* =========================================
+   CONTACTO
+========================================= */
+/* Banner Contacto */
+.banner-contacto {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: url('img/banner_contacto.jpg') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-contacto .banner-texto {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.banner-contacto h1 {
+  font-size: 2.5em;
+  color: #d4af37;
+}
+
+.banner-contacto p {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+/* Formulario Contacto */
+.contacto-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contacto-form label {
+  font-weight: bold;
+  color: #333;
+}
+
+.contacto-form input,
+.contacto-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1em;
+}
+
+.contacto-form input:focus,
+.contacto-form textarea:focus {
+  border-color: #d4af37;
+  outline: none;
+}
+
+.contacto-form button {
+  background-color: #d4af37;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.contacto-form button:hover {
+  background-color: #000;
+}

@@ -1,74 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AURA Perfumes</title>
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
+
     <!-- Menú superior -->
     <header class="menu">
+
         <div class="logo">
+
             <a href="index.html">
+
                 <img src="img/logo_perfume_sin_fondo.png" alt="Logo de la Tienda">
+
             </a>
+
         </div>
-        
+
         <nav class="nav">
+
             <a href="index.html">Inicio</a>
+
             <a href="nosotros.html">Quiénes Somos</a>
+
             <a href="productos.html">Productos</a>
+
             <a href="blogs.html">Blogs</a>
+
             <a href="contacto.html">Contacto</a>
+
             <a href="registro.html">Registro</a>
+
             <a href="login.html">Login</a>
+
         </nav>
+
     </header>
+
 
     <!-- Banner principal -->
     <section class="banner-container">
 
-    <img src="img/Banner2.webp" class="banner activo" alt="Banner principal">
+        <img src="img/Banner2.webp" class="banner activo" alt="Banner principal">
 
-    <img src="img/banner1.png" class="banner" alt="Banner 1">
+        <img src="img/banner1.png" class="banner" alt="Banner 1">
 
-</section>
+    </section>
+
 
     <!-- Sección de productos destacados -->
     <section class="destacados">
+
         <h2>Perfumes Destacados</h2>
-        <div class="productos-grid">
-            <div class="producto">
-                <a href="producto.html?id=1">
-                    <img src="img/invictus.jpg" alt="Perfume 1">
-                </a>
-                <h3>Perfume Rabanne Invictus Hombre EDT 50 ml</h3>
-                <p>$79.990</p>
-                <button>Añadir al carrito</button>
-            </div>
-            <div class="producto">
-                <img src="img/bomba.jpg" alt="Perfume 2">
-                <h3>Perfume La Bomba Eau de Parfum 80 ml</h3>
-                <p>$129.990</p>
-                <button>Añadir al carrito</button>
-            </div>
-            <div class="producto">
-                <img src="img/eros.jpg" alt="Perfume 6">
-                <h3>Perfume Eros EDT Hombre 200 ml</h3>
-                <p>$99.990</p>
-                <button>Añadir al carrito</button>
-            </div>
-        </div>
+
+        <div class="productos-grid" id="productos-destacados"></div>
+
     </section>
+
 
     <!-- Footer -->
     <footer>
+
         <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
+
         <p>Síguenos en Instagram y Facebook</p>
+
     </footer>
 
-    <!-- Script JS -->
+
+    <!-- Archivos JavaScript -->
+    <script src="js/productos.js"></script>
+
     <script src="js/script.js"></script>
+
+    <script src="js/index.js"></script>
+
 </body>
+
 </html>
