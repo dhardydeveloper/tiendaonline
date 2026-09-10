@@ -1,50 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administrador - AURA Perfumes</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/auth_check.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Estilos del Dashboard Principal de Administración */
+    .admin-dashboard {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .dashboard-header {
+      border-bottom: 2px solid #c5a059;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-header h1 {
+      font-size: 28px;
+      color: #111;
+      margin: 0 0 5px 0;
+    }
+
+    .dashboard-header p {
+      color: #666;
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .grid-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .card-admin {
+      background-color: #fcfcfc;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-admin:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(197, 160, 89, 0.25);
+      border-color: #c5a059;
+    }
+
+    .card-icon {
+      font-size: 40px;
+      color: #c5a059;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.4;
+    }
+
+    .badge-status {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 6px 12px;
+      background-color: #111;
+      color: #c5a059;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Estilos del menú superior */
+    .nav a.btn-carrito {
+      color: #c5a059;
+      font-size: 1.1rem;
+      margin-left: 10px;
+    }
+  </style>
 </head>
+
 <body>
-  <!-- Menú -->
+
+  <!-- MENÚ GENERAL -->
   <header class="menu">
     <div class="logo">
-      <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
+      <a href="index.html">
+        <img src="img/logo_perfume_sin_fondo.png" alt="AURA Perfumes">
+      </a>
     </div>
     <nav class="nav">
       <a href="index.html">Inicio</a>
-      <a href="nosotros.html">Quiénes Somos</a>
+      <a href="quienes_somos.html">Quiénes Somos</a>
       <a href="productos.html">Productos</a>
       <a href="blogs.html">Blogs</a>
       <a href="contacto.html">Contacto</a>
       <a href="registro.html">Registro</a>
       <a href="login.html">Login</a>
-      <a href="admin.html">Admin</a>
+      <a href="admin.html" style="color: #c5a059; font-weight: bold;">Admin</a>
+      <a href="carrito.html" class="btn-carrito" title="Ver Carrito"><i class="fa-solid fa-cart-shopping"></i></a>
     </nav>
   </header>
 
-  <!-- Panel administrador -->
-  <main class="admin">
-    <h1>Panel de Administración</h1>
-    <nav class="menu-admin">
-      <ul>
-        <li><a href="admin_productos.html">Gestionar Productos</a></li>
-        <li><a href="admin_usuarios.html">Gestionar Usuarios</a></li>
-        <li><a href="admin_roles.html">Roles</a></li>
-      </ul>
-    </nav>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="admin-dashboard">
+    <div class="dashboard-header">
+      <h1>Panel de Administración</h1>
+      <p>Bienvenido, Administrador. Selecciona un módulo para gestionar tu tienda.</p>
+    </div>
 
-    <section>
-      <h2>Bienvenido Administrador</h2>
-      <p>Desde este panel puedes gestionar los productos, usuarios y roles de la tienda.</p>
-    </section>
+    <div class="grid-dashboard">
+      <!-- Tarjeta 1: Productos -->
+      <a href="admin_productos.html" class="card-admin">
+        <div class="card-icon"><i class="fa-solid fa-box-open"></i></div>
+        <div class="card-title">Gestionar Productos</div>
+        <div class="card-desc">Administra el catálogo, precios, stock y nuevos perfumes de la tienda.</div>
+        <span class="badge-status">Ir al Inventario &rarr;</span>
+      </a>
+
+      <!-- Tarjeta 2: Usuarios -->
+      <a href="admin_usuarios.html" class="card-admin">
+        <div class="card-icon"><i class="fa-solid fa-users-gear"></i></div>
+        <div class="card-title">Gestionar Usuarios</div>
+        <div class="card-desc">Visualiza y edita las cuentas de clientes y administradores registrados.</div>
+        <span class="badge-status">Ver Usuarios &rarr;</span>
+      </a>
+
+      <!-- Tarjeta 3: Roles -->
+      <a href="admin_roles.html" class="card-admin">
+        <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
+        <div class="card-title">Configuración de Roles</div>
+        <div class="card-desc">Administra los niveles de acceso y los permisos dentro del sistema.</div>
+        <span class="badge-status">Ajustar Permisos &rarr;</span>
+      </a>
+    </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
+
+  <script>
+    // Verificación básica de sesión
+    document.addEventListener('DOMContentLoaded', () => {
+      const userRole = localStorage.getItem('userRole');
+      if (userRole !== 'admin') {
+        alert('Acceso restringido a Administradores.');
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+
 </body>
+
 </html>
