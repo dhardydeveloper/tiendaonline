@@ -1,4 +1,30 @@
 // =========================
+// Banner.deslizables 
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const mensaje = document.getElementById("mensaje");
+  let pos = window.innerWidth; // arranca fuera de pantalla
+  const velocidad = 2; // píxeles por frame
+
+  function animar() {
+    pos -= velocidad;
+    mensaje.style.transform = `translateX(${pos}px)`;
+
+    // cuando termina de salir, reinicia
+    if (pos < -mensaje.offsetWidth) {
+      pos = window.innerWidth;
+    }
+
+    requestAnimationFrame(animar);
+  }
+
+  animar();
+});
+
+
+
+// =========================
 // PRODUCTOS DESTACADOS
 // =========================
 
