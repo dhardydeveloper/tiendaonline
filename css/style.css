@@ -355,41 +355,82 @@ button:hover {
 
 /* Registro */
 .form-container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* centra verticalmente */
+  background: linear-gradient(135deg, #fffafc, #f5f0e6); /* fondo suave */
 }
 
 .form-box {
-  display: block;
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   margin: 30px auto;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-sizing: border-box;
+  padding: 30px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* sombra elegante */
+  text-align: center;
 }
 
 .logo-registro {
   width: 100px;
-  margin-bottom: 10px;
+  margin: 15px auto;
+  display: block;
+}
+
+.form-box h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #b8860b;
+  margin-bottom: 20px;
 }
 
 .form-box label {
   display: block;
   text-align: left;
-  margin-top: 6px;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #555;
 }
 
 .form-box input {
-  width: 90%;
-  padding: 6px;
-  margin-top: 5px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-box input:focus {
+  border-color: #b8860b;
+  outline: none;
+  box-shadow: 0 0 5px rgba(184,134,11,0.4);
 }
 
 .form-box button {
   margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #b8860b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
+.form-box button:hover {
+  background: #a67c00;
+}
+
+
+
+
+/* blogs */
 
 .banner-blogs {
   position: relative;
