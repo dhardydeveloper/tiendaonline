@@ -43,17 +43,19 @@
 
     <main class="detalle-producto">
 
-        <!-- Imagen -->
+        <!-- La imagen empieza vacía (src="" y alt="") porque producto.js 
+          la rellena según el "id" que venga en la URL -->
         <div class="detalle-imagen">
 
-            <img id="imagen-producto"
+            <img id="imagen-producto"  
                  src=""
                  alt="">
 
         </div>
 
 
-        <!-- Información -->
+        <!-- Estos campos (marca, nombre, categoría, precio, descripción) empiezan vacíos -->
+        <!-- producto.js los llena buscando el producto por el id de la URL -->
         <div class="detalle-info">
 
             <p id="marca-producto" class="detalle-marca"></p>
@@ -88,7 +90,8 @@
             </div>
 
 
-            <!-- Botón -->
+            <!-- Este botón tiene id="boton-carrito" -->
+            <!-- producto.js le agrega el evento "click" para agregarlo al carrito -->
             <button id="boton-carrito"
                     class="boton-carrito">
 

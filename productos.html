@@ -51,7 +51,9 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const userRole = localStorage.getItem('userRole'); // Detecta 'cliente', 'admin' o null
-      const contenedorUsuario = document.getElementById('menu-usuario');
+      
+      // Busca el <span id="menu-usuario"> que está vacío en el <nav>
+      const contenedorUsuario = document.getElementById('menu-usuario'); 
 
       if (!contenedorUsuario) return;
 
@@ -81,10 +83,11 @@
       }
 
       // Lógica de Cierre de Sesión
+      // Cierre de sesión: escucha clics en TODO el documento, pero solo reacciona si el clic fue justo en el botón "Cerrar Sesión".
       document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'btn-logout') {
           e.preventDefault();
-          localStorage.removeItem('userRole');
+          localStorage.removeItem('userRole'); // borra el rol guardado
           alert('Has cerrado sesión correctamente.');
           window.location.href = 'login.html';
         }

@@ -253,20 +253,22 @@
     ];
 
     // Cargar carrito desde localStorage o usar el ejemplo
+    // Lee el carrito guardado, o si no existe (primera vez), deja unos productos de ejemplo
     function obtenerCarrito() {
       const carritoGuardado = localStorage.getItem('carritoAURA');
       if (!carritoGuardado) {
         localStorage.setItem('carritoAURA', JSON.stringify(productosEjemplo));
         return productosEjemplo;
       }
-      return JSON.parse(carritoGuardado);
+      return JSON.parse(carritoGuardado);  // convierte el texto guardado de vuelta a un arreglo
     }
 
     function renderizarCarrito() {
       const carrito = obtenerCarrito();
       const contenedor = document.getElementById('contenedor-items');
       
-      if (carrito.length === 0) {
+      // Si no hay productos, muestra un mensaje de "carrito vacío"
+      if (carrito.length === 0) {  
         contenedor.innerHTML = `
           <div class="cart-empty">
             <i class="fa-solid fa-cart-flatbed"></i>
@@ -293,7 +295,8 @@
       `;
 
       let total = 0;
-
+      
+      // Recorre cada producto y arma una fila de tabla (<tr>) por cada uno
       carrito.forEach((item, index) => {
         const subtotal = item.precio * item.cantidad;
         total += subtotal;
@@ -322,21 +325,23 @@
       actualizarTotales(total);
     }
 
+    // Suma o resta 1 a la cantidad de un producto según el botón "+" o "-"
     function cambiarCantidad(index, cambio) {
       let carrito = obtenerCarrito();
       carrito[index].cantidad += cambio;
 
+      // Si la cantidad llega a 0 o menos, se elimina el producto del arreglo
       if (carrito[index].cantidad <= 0) {
         carrito.splice(index, 1);
       }
 
-      localStorage.setItem('carritoAURA', JSON.stringify(carrito));
+      localStorage.setItem('carritoAURA', JSON.stringify(carrito));  // guarda el cambio
       renderizarCarrito();
     }
 
     function eliminarItem(index) {
       let carrito = obtenerCarrito();
-      carrito.splice(index, 1);
+      carrito.splice(index, 1); // splice(posición, 1) = "borra 1 elemento desde esa posición"
       localStorage.setItem('carritoAURA', JSON.stringify(carrito));
       renderizarCarrito();
     }

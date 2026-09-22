@@ -227,7 +227,7 @@ nav.nav a:hover {
 /* Zoom de imagen */
 
 .producto:hover img {
-    transform: scale(1.06);
+    transform: scale(1.06); /* cuando el mouse pase sobre .producto, la img (hija) crece un 6% */
 }
 /*agrega una transición:*/
 .producto img {

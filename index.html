@@ -10,7 +10,7 @@
 
 <body>
 
-    <!-- Banner deslizable -->
+    <!-- Banner deslizable: el texto se mueve gracias a js/index.js -->
     <div class="banner-js">
         <span id="mensaje">💳 Paga en hasta 6 cuotas sin interés — 🛍️ Retira gratis en tienda — 🚚 Envío gratis sobre $50.000</span>
     </div>
@@ -53,9 +53,10 @@
     </footer>
 
     <!-- Archivos JavaScript -->
-    <script src="js/productos.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/productos.js"></script>   /* carga el arreglo de productos y funciones del carrito */
+    <script src="js/script.js"></script>  /* validaciones de formularios (login, registro, contacto) */
+    <script src="js/index.js"></script>  /* anima el banner y arma los "productos destacados" */
+    /* El orden importa: si dos archivos tienen una función con el mismo nombre, gana la que se carga AL FINAL*/
 
 </body>
 </html>
