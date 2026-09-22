@@ -2,17 +2,24 @@
 <html lang="es">
 
 <head>
+  <!-- Configuración básica de la página: idioma, caracteres especiales (UTF-8) y responsividad para pantallas móviles -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Productos - AURA Perfumes</title>
+  
+  <!-- Hojas de estilo externas: los estilos generales de la tienda y la librería FontAwesome para cargar íconos -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Estilos propios de la interfaz de administración (diseño, colores, botones y tablas) -->
   <style>
+    /* Estilo base de la página: fondo gris claro y tipografía limpia */
     body {
       background-color: #f4f6f9;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    /* Caja contenedora principal del panel de administración */
     .admin-container {
       max-width: 1100px;
       margin: 40px auto;
@@ -22,6 +29,7 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
 
+    /* Encabezado del panel con título y línea divisoria dorada */
     .admin-header {
       display: flex;
       justify-content: space-between;
@@ -37,6 +45,7 @@
       font-size: 24px;
     }
 
+    /* Menú de pestañas internas para navegar dentro del panel */
     .admin-nav {
       display: flex;
       gap: 12px;
@@ -58,12 +67,14 @@
       gap: 8px;
     }
 
+    /* Efecto al pasar el cursor o al estar en la pestaña activa */
     .admin-nav a.active, .admin-nav a:hover {
       background-color: #111111;
       color: #c5a059;
       border-color: #111111;
     }
 
+    /* Tarjeta contenedora para organizar los bloques de la página */
     .card-seccion {
       background: #fafafa;
       border: 1px solid #eaeaea;
@@ -82,12 +93,14 @@
       gap: 10px;
     }
 
+    /* Formulario en cuadrícula para ingresar los datos del producto */
     .form-admin-producto {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 15px;
     }
 
+    /* Agrupación de cada etiqueta con su campo de texto */
     .form-group {
       display: flex;
       flex-direction: column;
@@ -109,10 +122,12 @@
       transition: border-color 0.2s;
     }
 
+    /* Resalta el campo donde el usuario está escribiendo con un borde dorado */
     .form-admin-producto input:focus {
       border-color: #c5a059;
     }
 
+    /* Botón para enviar el formulario y guardar el producto */
     .btn-guardar {
       grid-column: 1 / -1;
       background-color: #c5a059;
@@ -131,6 +146,7 @@
       background-color: #a38241;
     }
 
+    /* Estilos para la tabla donde se muestran los productos del inventario */
     .tabla-productos {
       width: 100%;
       border-collapse: separate;
@@ -153,6 +169,7 @@
       font-weight: 600;
     }
 
+    /* Filas con colores alternados para mejorar la lectura */
     .tabla-productos tr:nth-child(even) {
       background-color: #fcfcfc;
     }
@@ -171,6 +188,7 @@
       color: #111;
     }
 
+    /* Botones de acción dentro de la tabla (Editar / Eliminar) */
     .btn-accion {
       padding: 7px 14px;
       border: none;
@@ -192,7 +210,7 @@
 
 <body>
 
-  <!-- MENÚ GENERAL -->
+  <!-- MENÚ GENERAL: Barra superior de navegación del sitio -->
   <header class="menu">
     <div class="logo">
       <a href="index.html">
@@ -207,20 +225,22 @@
     </nav>
   </header>
 
-  <!-- CONTENIDO PANEL DE ADMINISTRACIÓN -->
+  <!-- CONTENIDO PANEL DE ADMINISTRACIÓN: Sección principal de la página -->
   <main class="admin-container">
+    <!-- Saludo y título de la sección -->
     <div class="admin-header">
       <h2>Panel de Control - Administrador</h2>
       <span style="color: #666; font-size: 14px;"><i class="fa-solid fa-circle-user"></i> Bienvenido, Admin</span>
     </div>
 
-    <!-- Navegación entre tablas del Administrador -->
+    <!-- Navegación entre las distintas tablas del Administrador (Productos, Roles, Usuarios) -->
     <div class="admin-nav">
       <a href="admin_productos.html" class="active"><i class="fa-solid fa-box"></i> Productos</a>
       <a href="admin_roles.html"><i class="fa-solid fa-shield-halved"></i> Roles</a>
       <a href="admin_usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a>
     </div>
 
+    <!-- Formulario para agregar un nuevo perfume al inventario -->
     <div class="card-seccion">
       <h3><i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto</h3>
       <form class="form-admin-producto" id="formProducto">
@@ -244,6 +264,7 @@
       </form>
     </div>
 
+    <!-- Tabla que lista los productos existentes -->
     <div class="card-seccion" style="background: transparent; border: none; padding: 0;">
       <h3 style="margin-bottom: 15px;"><i class="fa-solid fa-list" style="color: #c5a059;"></i> Inventario de Productos</h3>
       <table class="tabla-productos">
@@ -263,20 +284,24 @@
     </div>
   </main>
 
+  <!-- Pie de página con derechos de autor -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Panel de Administración</p>
   </footer>
 
-  <!-- Control de Sesión -->
+  <!-- Control de Sesión: Verifica si el usuario es administrador y maneja el cierre de sesión -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Revisa el rol guardado en el navegador
       const userRole = localStorage.getItem('userRole');
       
+      // Si no es 'admin', rebota al usuario a la página de login
       if (userRole !== 'admin') {
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
         window.location.href = 'login.html';
       }
 
+      // Al hacer clic en "Cerrar Sesión", limpia los datos del navegador y redirige
       document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
         e.preventDefault();
         localStorage.clear();

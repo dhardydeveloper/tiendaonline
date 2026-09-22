@@ -5,10 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administrador - AURA Perfumes</title>
+  
+  <!-- Hoja de estilos principal de la web -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- Íconos de FontAwesome para mostrar los dibujitos en las tarjetas y el menú -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
-    /* Estilos del Dashboard Principal de Administración */
+    /* Caja blanca centrada que contiene todo el panel principal */
     .admin-dashboard {
       max-width: 1100px;
       margin: 40px auto;
@@ -19,6 +23,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    /* La cabecera del panel con la línea dorada abajo */
     .dashboard-header {
       border-bottom: 2px solid #c5a059;
       padding-bottom: 15px;
@@ -37,6 +42,7 @@
       margin: 0;
     }
 
+    /* Rejilla que acomoda las 3 tarjetas en filas y columnas de forma automática */
     .grid-dashboard {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -44,6 +50,7 @@
       margin-top: 30px;
     }
 
+    /* Estilo de cada tarjeta/acceso directo del panel */
     .card-admin {
       background-color: #fcfcfc;
       border: 1px solid #e0e0e0;
@@ -59,18 +66,21 @@
       justify-content: center;
     }
 
+    /* Efecto cuando pasas el ratón por encima: la tarjeta flota un poquito y brilla en dorado */
     .card-admin:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(197, 160, 89, 0.25);
       border-color: #c5a059;
     }
 
+    /* Ícono grande en color dorado dentro de la tarjeta */
     .card-icon {
       font-size: 40px;
       color: #c5a059;
       margin-bottom: 15px;
     }
 
+    /* Título en negrita de la tarjeta */
     .card-title {
       font-size: 20px;
       font-weight: bold;
@@ -78,12 +88,14 @@
       color: #111;
     }
 
+    /* Texto explicativo pequeño dentro de la tarjeta */
     .card-desc {
       font-size: 13px;
       color: #777;
       line-height: 1.4;
     }
 
+    /* Etiqueta/botón negro con texto dorado en la parte inferior de la tarjeta */
     .badge-status {
       display: inline-block;
       margin-top: 15px;
@@ -95,7 +107,7 @@
       font-weight: 600;
     }
 
-    /* Estilos del menú superior */
+    /* Estilo especial para el ícono del carrito en el menú de arriba */
     .nav a.btn-carrito {
       color: #c5a059;
       font-size: 1.1rem;
@@ -106,13 +118,15 @@
 
 <body>
 
-  <!-- MENÚ GENERAL -->
+  <!-- MENÚ GENERAL DE LA PÁGINA -->
   <header class="menu">
+    <!-- Logotipo de AURA Perfumes que te lleva al Inicio -->
     <div class="logo">
       <a href="index.html">
         <img src="img/logo_perfume_sin_fondo.png" alt="AURA Perfumes">
       </a>
     </div>
+    <!-- Todos los enlaces principales para navegar por el sitio web -->
     <nav class="nav">
       <a href="index.html">Inicio</a>
       <a href="quienes_somos.html">Quiénes Somos</a>
@@ -121,20 +135,24 @@
       <a href="contacto.html">Contacto</a>
       <a href="registro.html">Registro</a>
       <a href="login.html">Login</a>
+      <!-- Enlace resaltado que indica que estás en la sección de Administración -->
       <a href="admin.html" style="color: #c5a059; font-weight: bold;">Admin</a>
       <a href="carrito.html" class="btn-carrito" title="Ver Carrito"><i class="fa-solid fa-cart-shopping"></i></a>
     </nav>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
+  <!-- CONTENIDO PRINCIPAL (PANEL DE CONTROL) -->
   <main class="admin-dashboard">
+    <!-- Mensaje de bienvenida del panel -->
     <div class="dashboard-header">
       <h1>Panel de Administración</h1>
       <p>Bienvenido, Administrador. Selecciona un módulo para gestionar tu tienda.</p>
     </div>
 
+    <!-- Las 3 tarjetas principales que sirven como menú de acceso rápido -->
     <div class="grid-dashboard">
-      <!-- Tarjeta 1: Productos -->
+      
+      <!-- Tarjeta 1: Te lleva a la gestión del catálogo de perfumes -->
       <a href="admin_productos.html" class="card-admin">
         <div class="card-icon"><i class="fa-solid fa-box-open"></i></div>
         <div class="card-title">Gestionar Productos</div>
@@ -142,7 +160,7 @@
         <span class="badge-status">Ir al Inventario &rarr;</span>
       </a>
 
-      <!-- Tarjeta 2: Usuarios -->
+      <!-- Tarjeta 2: Te lleva a administrar las cuentas de los usuarios registrados -->
       <a href="admin_usuarios.html" class="card-admin">
         <div class="card-icon"><i class="fa-solid fa-users-gear"></i></div>
         <div class="card-title">Gestionar Usuarios</div>
@@ -150,24 +168,30 @@
         <span class="badge-status">Ver Usuarios &rarr;</span>
       </a>
 
-      <!-- Tarjeta 3: Roles -->
+      <!-- Tarjeta 3: Te lleva a configurar los niveles de permisos o roles -->
       <a href="admin_roles.html" class="card-admin">
         <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
         <div class="card-title">Configuración de Roles</div>
         <div class="card-desc">Administra los niveles de acceso y los permisos dentro del sistema.</div>
         <span class="badge-status">Ajustar Permisos &rarr;</span>
       </a>
+
     </div>
   </main>
 
+  <!-- PIE DE PÁGINA -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
 
+  <!-- LÓGICA DE JAVASCRIPT -->
   <script>
-    // Verificación básica de sesión
+    // Control de seguridad: Se ejecuta automáticamente al abrir la página
     document.addEventListener('DOMContentLoaded', () => {
+      // Revisa en la memoria del navegador si quien entró tiene el rol de 'admin'
       const userRole = localStorage.getItem('userRole');
+      
+      // Si NO es administrador, muestra un aviso y lo redirige automáticamente a la pantalla de Login
       if (userRole !== 'admin') {
         alert('Acceso restringido a Administradores.');
         window.location.href = 'login.html';
