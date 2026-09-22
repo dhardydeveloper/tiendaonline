@@ -257,26 +257,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td><b>Perfume Elegance Gold</b></td>
-            <td>AURA</td>
-            <td class="precio-tag">$45.000</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><b>Eau de Parfum Noir</b></td>
-            <td>AURA</td>
-            <td class="precio-tag">$52.000</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          </tr>
+          <!-- Las filas de productos se cargan dinámicamente desde js/productos.js -->
         </tbody>
       </table>
     </div>
@@ -286,6 +267,7 @@
     <p>&copy; 2026 AURA Perfumes - Panel de Administración</p>
   </footer>
 
+  <!-- Control de Sesión -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const userRole = localStorage.getItem('userRole');
@@ -303,6 +285,9 @@
       });
     });
   </script>
+
+  <!-- Lógica de gestión de productos (Crear, Leer, Editar, Eliminar) -->
+  <script src="js/productos.js"></script>
 
 </body>
 

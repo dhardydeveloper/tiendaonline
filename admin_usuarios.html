@@ -239,28 +239,28 @@
 
     <!-- FORMULARIO NUEVO USUARIO -->
     <div class="card-seccion">
-      <h3><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario</h3>
+      <h3 id="form-titulo"><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario</h3>
       <form class="form-admin-usuario" id="formUsuario">
         <div class="form-group">
-          <label>Nombre Completo</label>
-          <input type="text" placeholder="Ej. Alexandra Sujheil" required>
+          <label for="inputNombre">Nombre Completo</label>
+          <input type="text" id="inputNombre" placeholder="Ej. Alexandra Sujheil" required>
         </div>
         <div class="form-group">
-          <label>Correo Electrónico</label>
-          <input type="email" placeholder="correo@ejemplo.com" required>
+          <label for="inputCorreo">Correo Electrónico</label>
+          <input type="email" id="inputCorreo" placeholder="correo@ejemplo.com" required>
         </div>
         <div class="form-group">
-          <label>Contraseña</label>
-          <input type="password" placeholder="••••••••" required>
+          <label for="inputPassword">Contraseña</label>
+          <input type="password" id="inputPassword" placeholder="••••••••">
         </div>
         <div class="form-group">
-          <label>Rol de Usuario</label>
-          <select required>
+          <label for="selectRol">Rol de Usuario</label>
+          <select id="selectRol" required>
             <option value="cliente">Cliente / Comprador</option>
             <option value="admin">Administrador</option>
           </select>
         </div>
-        <button type="submit" class="btn-guardar"><i class="fa-solid fa-user-check"></i> Crear Usuario</button>
+        <button type="submit" class="btn-guardar" id="btnGuardar"><i class="fa-solid fa-user-check"></i> Crear Usuario</button>
       </form>
     </div>
 
@@ -277,27 +277,8 @@
             <th style="text-align: center;">Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><b>Administrador General</b></td>
-            <td>admin@aura.com</td>
-            <td><span class="badge-rol-admin"><i class="fa-solid fa-user-shield"></i> Administrador</span></td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><b>Cliente Prueba</b></td>
-            <td>cliente@gmail.com</td>
-            <td><span class="badge-rol-cliente"><i class="fa-solid fa-user"></i> Cliente</span></td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          </tr>
+        <tbody id="tabla-body-usuarios">
+          <!-- Se completa mediante JS -->
         </tbody>
       </table>
     </div>
@@ -308,21 +289,157 @@
   </footer>
 
   <script>
+    // Datos predeterminados
+    const defaultUsuarios = [
+      {
+        id: 1,
+        nombre: 'Administrador General',
+        correo: 'admin@aura.com',
+        password: 'adminpassword',
+        rol: 'admin'
+      },
+      {
+        id: 2,
+        nombre: 'Cliente Prueba',
+        correo: 'cliente@gmail.com',
+        password: 'clientepassword',
+        rol: 'cliente'
+      }
+    ];
+
+    let usuarios = JSON.parse(localStorage.getItem('aura_usuarios')) || defaultUsuarios;
+    let usuarioEditandoId = null;
+
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. Verificación de Autenticación
       const userRole = localStorage.getItem('userRole');
-      
       if (userRole !== 'admin') {
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
         window.location.href = 'login.html';
+        return;
       }
 
+      // 2. Cerrar Sesión
       document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
         e.preventDefault();
-        localStorage.clear();
+        localStorage.removeItem('userRole');
         alert('Sesión cerrada correctamente.');
         window.location.href = 'login.html';
       });
+
+      // 3. Renderizado inicial de tabla
+      renderizarTabla();
+
+      // 4. Captura del envio del Formulario
+      document.getElementById('formUsuario').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('inputNombre').value.trim();
+        const correo = document.getElementById('inputCorreo').value.trim();
+        const password = document.getElementById('inputPassword').value.trim();
+        const rol = document.getElementById('selectRol').value;
+
+        if (usuarioEditandoId !== null) {
+          // Edición
+          usuarios = usuarios.map(usr => {
+            if (usr.id === usuarioEditandoId) {
+              return {
+                ...usr,
+                nombre,
+                correo,
+                password: password ? password : usr.password,
+                rol
+              };
+            }
+            return usr;
+          });
+          usuarioEditandoId = null;
+          restablecerFormulario();
+        } else {
+          // Crear
+          const nuevoId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
+          usuarios.push({
+            id: nuevoId,
+            nombre,
+            correo,
+            password: password || '123456',
+            rol
+          });
+        }
+
+        guardarEnStorage();
+        renderizarTabla();
+        this.reset();
+      });
     });
+
+    // Renderizar las filas de la tabla
+    function renderizarTabla() {
+      const tbody = document.getElementById('tabla-body-usuarios');
+      tbody.innerHTML = '';
+
+      usuarios.forEach(usr => {
+        const tr = document.createElement('tr');
+
+        const isAdmin = usr.rol === 'admin';
+        const badgeHTML = isAdmin
+          ? `<span class="badge-rol-admin"><i class="fa-solid fa-user-shield"></i> Administrador</span>`
+          : `<span class="badge-rol-cliente"><i class="fa-solid fa-user"></i> Cliente</span>`;
+
+        tr.innerHTML = `
+          <td>${usr.id}</td>
+          <td><b>${usr.nombre}</b></td>
+          <td>${usr.correo}</td>
+          <td>${badgeHTML}</td>
+          <td style="text-align: center;">
+            <button class="btn-accion btn-editar" onclick="cargarEdicion(${usr.id})"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button class="btn-accion btn-eliminar" onclick="eliminarUsuario(${usr.id})"><i class="fa-solid fa-trash"></i> Eliminar</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Cargar información al formulario para editar
+    function cargarEdicion(id) {
+      const usr = usuarios.find(u => u.id === id);
+      if (!usr) return;
+
+      document.getElementById('inputNombre').value = usr.nombre;
+      document.getElementById('inputCorreo').value = usr.correo;
+      document.getElementById('inputPassword').value = '';
+      document.getElementById('inputPassword').placeholder = 'Dejar en blanco para no cambiar';
+      document.getElementById('selectRol').value = usr.rol;
+
+      usuarioEditandoId = id;
+
+      document.getElementById('form-titulo').innerHTML = `<i class="fa-solid fa-user-pen" style="color: #c5a059;"></i> Modificar Usuario ID #${id}`;
+      document.getElementById('btnGuardar').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Guardar Cambios`;
+    }
+
+    // Eliminar usuario
+    function eliminarUsuario(id) {
+      if (confirm(`¿Estás seguro de que deseas eliminar al usuario con ID ${id}?`)) {
+        usuarios = usuarios.filter(u => u.id !== id);
+        guardarEnStorage();
+        renderizarTabla();
+        if (usuarioEditandoId === id) restablecerFormulario();
+      }
+    }
+
+    // Guardar en localStorage
+    function guardarEnStorage() {
+      localStorage.setItem('aura_usuarios', JSON.stringify(usuarios));
+    }
+
+    // Restablecer formulario
+    function restablecerFormulario() {
+      document.getElementById('formUsuario').reset();
+      document.getElementById('inputPassword').placeholder = '••••••••';
+      usuarioEditandoId = null;
+      document.getElementById('form-titulo').innerHTML = `<i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario`;
+      document.getElementById('btnGuardar').innerHTML = `<i class="fa-solid fa-user-check"></i> Crear Usuario`;
+    }
   </script>
 
 </body>
