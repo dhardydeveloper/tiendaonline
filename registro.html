@@ -41,12 +41,12 @@
 
       <!-- type="email" hace que el navegador valide automáticamente
          que tenga formato de correo (algo@algo.com), sin necesitar JS -->
-      <input type="email" id="correo" name="correo" required>
+      <input type="email" id="correo" name="correo" required> 
 
       <label for="password">Contraseña:</label>
 
-      <!-- minlength y maxlength: el propio HTML ya exige entre 4 y 10
-         caracteres antes de dejar enviar el formulario -->
+      <!-- minlength="4": mínimo 4 caracteres, maxlength="10": máximo 10 caracteres. 
+       Este además impide seguir escribiendo antes de dejar enviar el formulario -->
       <input type="password" id="password" name="password" minlength="4" maxlength="10" required>
 
       <label for="region">Región:</label>

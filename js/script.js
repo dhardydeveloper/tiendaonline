@@ -37,7 +37,7 @@ const formRegistro = document.getElementById("formRegistro");
 if(formRegistro){
   formRegistro.addEventListener("submit", (e) => {
     e.preventDefault();
-    const nombre = document.getElementById("nombre").value;
+    const nombre = document.getElementById("nombre").value; 
     const correo = document.getElementById("correo").value;
     const password = document.getElementById("password").value;
 
@@ -56,7 +56,7 @@ if(formContacto){
   formContacto.addEventListener("submit", (e) => {
     e.preventDefault();
     alert("Mensaje enviado correctamente. ¡Gracias por contactarnos!");
-    formContacto.reset();
+    formContacto.reset();  /* resetea el formulario después de enviar */
   });
 }
 
