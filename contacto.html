@@ -57,10 +57,26 @@
       </form>
     </section>
   </main>
-
+<div id="respuesta-envio" style="margin-top: 15px; font-weight: bold; text-align: center;"></div>
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
   <script src="js/menu-rol.js"></script>
+  <script>
+  document.getElementById('formContacto').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evita que la página se recargue
+
+    // Aquí puedes agregar tu lógica de envío (fetch a un servidor, etc.)
+    
+    // Muestra el mensaje único
+    const contenedorRespuesta = document.getElementById('respuesta-envio');
+    contenedorRespuesta.style.color = 'green';
+    contenedorRespuesta.textContent = '¡Gracias por contactarnos! Tu mensaje ha sido enviado con éxito.';
+
+    // Opcional: Limpiar el formulario
+    this.reset();
+  });
+</script>
+  
 </body>
 </html>
