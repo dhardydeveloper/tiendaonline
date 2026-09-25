@@ -46,6 +46,13 @@ if(formRegistro){
       return;
     }
 
+    // Solo permite correos @gmail.com o @duocuc.cl
+    const correoValido = correo.endsWith("@gmail.com") || correo.endsWith("@duocuc.cl");
+    if(!correoValido){
+      alert("Solo se aceptan correos @gmail.com o @duocuc.cl");
+      return;
+    }
+
     alert(`Usuario ${nombre} registrado con éxito`);
     window.location.href = "login.html";
   });
