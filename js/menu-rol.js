@@ -30,10 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="#" id="btn-logout" style="color: #ff4d4d; font-weight: bold; margin-left: 10px;">Cerrar Sesión</a>
     `;
   } else {
-    // Muestra opciones por defecto para visitantes
+    // Visitante no registrado (Muestra Registro, Login y Carrito por defecto)
     contenedorUsuario.innerHTML = `
       <a href="registro.html">Registro</a>
       <a href="login.html">Login</a>
+      <a href="carrito.html" style="color: #c5a059; font-size: 1.2rem; margin-left: 10px;" title="Mi Carrito de Compras">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
     `;
   }
 
