@@ -51,11 +51,9 @@ if (!producto) {
         );
 
         agregarAlCarrito(
-            producto.nombre,
-            producto.precio,
-            cantidad,
-            producto.imagen
-        );
+    producto.nombre,
+    producto.precio
+);
 
     });
 

@@ -254,25 +254,37 @@ if (contenedor) {
 }
 
 // FUNCIONALIDAD PARA GUARDAR EN EL CARRITO
-function agregarAlCarrito(nombre, precio) {
-    // Obtener carrito actual de localStorage o inicializarlo vacío
-    let carrito = JSON.parse(localStorage.getItem('carritoAURA')) || [];
+function agregarAlCarrito(nombre, precio, cantidad = 1) {
 
-    // Buscar si el producto ya existe en el carrito por nombre
-    const productoExistente = carrito.find(item => item.nombre === nombre);
+    // Obtener el carrito actual
+    let carrito = JSON.parse(localStorage.getItem("carritoAURA")) || [];
+
+    // Buscar si el producto ya existe
+    const productoExistente = carrito.find(
+        item => item.nombre === nombre
+    );
 
     if (productoExistente) {
-        productoExistente.cantidad += 1;
+
+        // Si ya existe, aumentar cantidad
+        productoExistente.cantidad += cantidad;
+
     } else {
+
+        // Si no existe, agregarlo
         carrito.push({
             nombre: nombre,
             precio: precio,
-            cantidad: 1
+            cantidad: cantidad
         });
     }
 
-    // Guardar el carrito actualizado en localStorage
-    localStorage.setItem('carritoAURA', JSON.stringify(carrito));
+    // Guardar carrito
+    localStorage.setItem(
+        "carritoAURA",
+        JSON.stringify(carrito)
+    );
 
+    // Avisar al usuario
     alert(`¡${nombre} se agregó al carrito!`);
 }
