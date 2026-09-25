@@ -59,10 +59,7 @@ if (!producto) {
     });
 
 
-    // Mostrar recomendados
-
-    mostrarRecomendados(producto);
-
+    
 }
 
 
