@@ -1,4 +1,30 @@
 // =========================
+// movimiento banner principal
+// =========================
+const banners = document.querySelectorAll(".banner");
+
+let indice = 0;
+
+setInterval(function() {
+
+    // Ocultar banner actual
+    banners[indice].classList.remove("activo");
+
+    // Pasar al siguiente
+    indice++;
+
+    // Si llega al último, volver al primero
+    if (indice >= banners.length) {
+        indice = 0;
+    }
+
+    // Mostrar siguiente banner
+    banners[indice].classList.add("activo");
+
+}, 4000);
+
+
+// =========================
 // Banner.deslizables 
 // =========================
 
