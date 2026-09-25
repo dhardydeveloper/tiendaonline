@@ -25,27 +25,50 @@ setInterval(function() {
 
 
 // =========================
-// Banner.deslizables 
+// Banner.deslizables - carla acuña 
 // =========================
 
+// "DOMContentLoaded" espera a que todo el HTML de la página esté cargado 
+// antes de ejecutar el código, así nos aseguramos de que el elemento #mensaje ya exista
 document.addEventListener("DOMContentLoaded", () => {
   const mensaje = document.getElementById("mensaje");  // el texto del banner
+  // Guardamos en "mensaje" el <span id="mensaje"> del banner promocional (cuotas, envío gratis, etc.) 
+  // Se ingresa en el body de cada pagina
+
   let pos = window.innerWidth; // arranca fuera de pantalla
+ 
+
   const velocidad = 2; // píxeles por frame
+  // Cuántos píxeles se mueve el texto hacia la izquierda en cada actualización (cada frame)
 
   function animar() {
+    // Esta función se llama una y otra vez para crear el efecto de desplazamiento continuo
+
     pos -= velocidad;  // lo mueve hacia la izquierda
+    // Resta la velocidad a la posición actual, haciendo que el texto avance de derecha a izquierda
+
     mensaje.style.transform = `translateX(${pos}px)`;   // aplica el movimiento
+    // translateX mueve el elemento horizontalmente sin afectar el resto del layout de la página,
+    // usando la propiedad CSS "transform" directamente desde JavaScript
 
     // cuando termina de salir, reinicia
     if (pos < -mensaje.offsetWidth) {
+      // "mensaje.offsetWidth" es el ancho real del texto en píxeles.
+      // Si "pos" es menor a ese ancho en negativo, significa que el texto 
+      // ya salió completamente por el lado izquierdo de la pantalla
       pos = window.innerWidth;
+      // Al cumplirse esa condición, se reinicia la posición al borde derecho, 
+      // haciendo que el texto vuelva a entrar y el ciclo se repita infinitamente
     }
 
     requestAnimationFrame(animar);   // repite esto en el siguiente frame (loop infinito)
+    // requestAnimationFrame le pide al navegador que vuelva a ejecutar "animar" 
+    // en el próximo refresco de pantalla (usualmente 60 veces por segundo), 
+    // logrando así una animación fluida sin usar setInterval
   }
 
   animar();
+  // Llama a la función por primera vez para iniciar el ciclo de animación
 });
 
 
@@ -197,3 +220,16 @@ if (contenedorDestacados) {
 
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,5 @@
+<!-- Carla Acuña-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,85 +10,106 @@
   <style>
     /* Estilos específicos para blogs */
 
+    /* ============================================= 
+       BANNER SUPERIOR DE LA PÁGINA DE BLOGS
+       ============================================= */
         .banner-blogs {
       position: relative;
-      height: 400px;
+      height: 400px; /* Alto fijo del banner */
       background: url('img/banner_blogs.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      /* La imagen de fondo se centra tanto horizontal como verticalmente 
+         gracias a "center center", y "cover" hace que la imagen cubra 
+         todo el espacio del banner sin deformarse */
+      display: flex; /* Flexbox para centrar el contenido interno (.banner-texto) */
+      align-items: center;    /* Centra el texto verticalmente dentro del banner */
+      justify-content: center; /* Centra el texto horizontalmente dentro del banner */
     }
 
 
+    /* ============================================= 
+       CONTENEDOR GENERAL DE LOS BLOGS
+       ============================================= */
     .blogs-container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
+      max-width: 1000px; /* Ancho máximo del contenido, para que no se estire demasiado en pantallas grandes */
+      margin: 40px auto; /* "auto" a los lados centra horizontalmente todo el bloque en la página */
+      padding: 0 20px; /* Espacio interno a los costados */
     }
 
+    /* ============================================= 
+       TARJETA DE CADA BLOG (imagen + texto lado a lado)
+       ============================================= */
     .blog-card {
       display: flex;
-      flex-direction: row;
-      gap: 20px;
-      margin-bottom: 40px;
+      flex-direction: row; /* Ordena la imagen y el texto en fila (uno al lado del otro) */
+      gap: 20px; /* Espacio entre la imagen y el bloque de texto */
+      margin-bottom: 40px; /* Separación entre una tarjeta de blog y la siguiente */
       background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
+      border-radius: 10px; /* Bordes redondeados de la tarjeta */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave para dar efecto de "tarjeta elevada" */
+      overflow: hidden; /* Recorta cualquier contenido (como la imagen) que sobresalga de los bordes redondeados */
     }
 
     .blog-card img {
-      width: 300px;
-      object-fit: cover;
+      width: 300px; /* Ancho fijo de la imagen dentro de la tarjeta */
+      object-fit: cover; 
+      /* object-fit: cover hace que la imagen llene ese espacio de 300px 
+         sin deformarse, recortando lo que sobre para que se vea centrada y proporcionada */
     }
 
     .blog-content {
-      padding: 20px;
-      flex: 1;
+      padding: 20px; /* Espacio interno alrededor del texto */
+      flex: 1; /* Hace que el bloque de texto ocupe todo el espacio restante junto a la imagen */
     }
 
     .blog-content h2 {
-      color: #d4af37;
+      color: #d4af37; /* dorado */
       margin-top: 0;
     }
 
     .blog-content p {
-      line-height: 1.6;
+      line-height: 1.6; /* Espaciado entre líneas para que el párrafo se lea más cómodo */
       color: #555;
     }
 
     .blog-content a {
-      display: inline-block;
+      display: inline-block; /* Permite aplicar márgenes al link como si fuera un bloque, sin que ocupe toda la línea */
       margin-top: 10px;
       color: #000;
       font-weight: bold;
-      text-decoration: none;
-      border-bottom: 2px solid #d4af37;
+      text-decoration: none; /* Quita el subrayado por defecto de los links */
+      border-bottom: 2px solid #d4af37; /* Línea dorada debajo del texto, simulando un subrayado decorativo */
     }
 
     .blog-content a:hover {
+      /* Al pasar el mouse por encima del link "Leer más", el texto cambia a color dorado */
       color: #d4af37;
     }
 
+    /* ============================================= 
+       ADAPTACIÓN A PANTALLAS PEQUEÑAS (CELULARES)
+       ============================================= */
     @media (max-width: 768px) {
+      /* Estas reglas solo se aplican cuando la pantalla mide 768px de ancho o menos */
       .blog-card {
-        flex-direction: column;
+        flex-direction: column; /* En celulares, la imagen y el texto pasan a apilarse uno debajo del otro en vez de en fila */
       }
       .blog-card img {
-        width: 100%;
-        height: 200px;
+        width: 100%; /* La imagen ocupa todo el ancho disponible */
+        height: 200px; /* Alto fijo más bajo, adaptado a pantallas pequeñas */
       }
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Librería de íconos Font Awesome, cargada desde un CDN externo -->
 </head>
 <body>
+    <!-- Barra superior con mensaje promocional (cuotas, retiro en tienda, envío gratis) -->
     <div class="banner-js">
         <span id="mensaje">💳 Paga en hasta 6 cuotas sin interés — 🛍️ Retira gratis en tienda — 🚚 Envío gratis sobre $50.000</span>
     </div>
 
 
-  <!-- Menú -->
+  <!-- Menú superior de navegación -->
   <header class="menu">
     <div class="logo">
       <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
@@ -103,7 +126,7 @@
       </span>
     </nav>
   </header>
-<!-- Banner Blogs -->
+<!-- Banner Blogs (estilos definidos arriba en .banner-blogs, con el texto centrado encima de la imagen) -->
 <section class="banner-blogs">
   <div class="banner-texto">
     <h1>Revista AURA</h1>
@@ -111,16 +134,18 @@
   </div>
   
 </section>
-  <!-- Contenido -->
+  <!-- Contenido principal: listado de tarjetas de blog -->
   <main class="blogs-container">
     <h1>Revista AURA</h1>
 
+    <!-- Cada .blog-card es una tarjeta con imagen a la izquierda y texto a la derecha (ver estilos .blog-card e .img arriba) -->
     <div class="blog-card">
       <img src="img/img_blog1.jpg" alt="Arte de la fragancia">
       <div class="blog-content">
         <h2>El arte de la fragancia</h2>
         <p>Los perfumes son más que un aroma: son una experiencia sensorial que conecta con recuerdos y emociones. Descubre cómo elegir fragancias que hablen de ti.</p>
         <a href="blog1.html">Leer más</a>
+        <!-- Este link lleva al artículo completo del blog 1 -->
       </div>
     </div>
 
@@ -130,6 +155,7 @@
         <h2>Consejos para elegir tu fragancia</h2>
         <p>¿Perfume floral, cítrico o amaderado? Aprende a identificar las notas que mejor se adaptan a tu estilo y ocasión.</p>
         <a href="blog2.html">Leer más</a>
+        <!-- Este link lleva al artículo completo del blog 2 -->
       </div>
     </div>
 
@@ -139,6 +165,7 @@
         <h2>Fragancias icónicas de la historia</h2>
         <p>Un recorrido por los perfumes que marcaron tendencia y se convirtieron en símbolos de elegancia a lo largo de las décadas.</p>
         <a href="blog3.html">Leer más</a>
+        <!-- Este link lleva al artículo completo del blog 3 -->
       </div>
     </div>
 
@@ -148,14 +175,16 @@
         <h2>Cómo conservar tu perfume</h2>
         <p>La luz, la temperatura y el aire pueden afectar tu fragancia. Descubre los mejores tips para mantenerla intacta por más tiempo.</p>
         <a href="blog4.html">Leer más</a>
+        <!-- Este link lleva al artículo completo del blog 4 -->
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Pie de página -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
   <script src="js/menu-rol.js"></script>
+  <!-- Script externo que controla el menú según el rol del usuario (registro/login) -->
 </body>
 </html>

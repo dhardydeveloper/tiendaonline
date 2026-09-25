@@ -1,17 +1,28 @@
+<!-- Carla Acuña-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- El viewport asegura que la página se vea bien adaptada en celulares y tablets -->
   <title>Consejos para elegir tu fragancia - AURA Perfumes</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Esta página no tiene <style> propio, así que todo el diseño (centrado de imágenes,
+       tamaños de letra, ancho del artículo, etc.) viene definido en css/style.css,
+       probablemente bajo clases como .blog-page y .blog-articulo -->
 
   <!-- Tipografías elegantes -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Se importan dos fuentes de Google Fonts: "Playfair Display" (elegante, para títulos) 
+       y "Open Sans" (más simple, para texto normal). El "wght" indica los grosores 
+       de letra disponibles (500/700 y 400/600). Para que se usen realmente, 
+       deben estar asignadas con font-family en el CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Librería de íconos Font Awesome, cargada desde un CDN externo -->
 </head>
 <body>
-  <!-- Menú -->
+  <!-- Menú superior de navegación -->
   <header class="menu">
     <div class="logo">
       <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
@@ -21,6 +32,7 @@
       <a href="nosotros.html">Quiénes Somos</a>
       <a href="productos.html">Productos</a>
       <a href="blogs.html" class="activo">Blogs</a>
+      <!-- La clase "activo" resalta visualmente que el usuario está dentro de la sección de Blogs -->
       <a href="contacto.html">Contacto</a>
       <span id="menu-usuario">
         <a href="registro.html">Registro</a>
@@ -29,25 +41,27 @@
     </nav>
   </header>
 
-  <!-- Contenido del blog -->
+  <!-- Contenido del artículo individual del blog -->
   <main class="blog-page">
     <article class="blog-articulo">
-      <!-- Título principal -->
+      <!-- Título principal del artículo -->
       <h1>Consejos para elegir tu fragancia</h1>
       <p class="autor-fecha"><strong>Por Sebastián Torres</strong> · 11 Septiembre 2026</p>
+      <!-- Autor y fecha de publicación del blog -->
 
-      <!-- Imagen destacada -->
+      <!-- Imagen destacada del artículo (el centrado y tamaño de esta imagen 
+           se controla desde la clase .blog-imagen en css/style.css) -->
       <div class="blog-imagen">
         <img src="img/img_blog2.jpg" alt="Consejos para elegir tu fragancia">
       </div>
 
-      <!-- Intro -->
+      <!-- Párrafo introductorio del blog -->
       <p class="intro">
         Elegir un perfume es como elegir un recuerdo que te acompañará cada día.  
         Una fragancia puede ser tu firma invisible, la que deja huella en quienes te rodean.
       </p>
 
-      <!-- Sección narrativa -->
+      <!-- Sección narrativa: relaciona el tipo de fragancia con la ocasión -->
       <h2>El perfume y la ocasión</h2>
       <p>
         Imagina una caminata al amanecer: ahí brillan los cítricos, frescos y vitales.  
@@ -62,12 +76,14 @@
         Lo que en un frasco parece intenso, en tu piel puede transformarse en delicado y único.
       </p>
 
-      <!-- Imagen secundaria -->
+      <!-- Imagen secundaria del artículo, con clase extra "secundaria" 
+           (probablemente con un tamaño o estilo distinto al de la imagen destacada, definido en el CSS) -->
       <div class="blog-imagen secundaria">
         <img src="img/img_blog2_extra.jpg" alt="Pareja probando perfume juntos en tocador elegante">
       </div>
 
-      <!-- Cita editorial -->
+      <!-- Cita editorial destacada (el estilo de esta frase, como el tamaño de letra 
+           o la línea decorativa, se define en el CSS bajo el selector "blockquote") -->
       <blockquote>
         “Tu perfume es tu historia contada en silencio.”
       </blockquote>
@@ -83,15 +99,17 @@
         <li><strong>Prueba antes de comprar:</strong> deja que el perfume evolucione en tu piel durante unas horas para conocer sus notas de fondo.</li>
       </ul>
 
-      <!-- Botón de acción -->
+      <!-- Botón de llamado a la acción, lleva a la página de productos -->
       <a href="productos.html" class="btn">Descubre tu fragancia ideal</a>
     </article>
   </main>
 
-  <!-- Footer -->
+  <!-- Pie de página -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
   <script src="js/menu-rol.js"></script>
+  <!-- Script externo que controla el menú según el rol del usuario (registro/login) -->
 </body>
 </html>
+

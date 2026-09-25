@@ -1,3 +1,5 @@
+<!-- Carla Acuña/quienes somos--> 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,47 +8,61 @@
   <title>Quiénes Somos - AURA Perfumes</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Banner */
+    /* ============================================= 
+       BANNER PRINCIPAL DE LA PÁGINA "QUIÉNES SOMOS"
+       ============================================= */
     .banner-nosotros {
       position: relative;
-      height: 400px;
-      background: url('img/banner_perfumes.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 400px; /* Alto fijo del banner */
+      background: url('img/banner_perfumes.jpg') no-repeat center center/cover; 
+      /* La imagen de fondo se centra tanto horizontal como verticalmente 
+         gracias a "center center", y "cover" hace que la imagen cubra 
+         todo el espacio del banner sin deformarse */
+      display: flex; /* Flexbox para centrar el contenido interno (banner-texto) */
+      align-items: center;    /* Centra el texto verticalmente dentro del banner */
+      justify-content: center; /* Centra el texto horizontalmente dentro del banner */
     }
     .banner-texto {
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.5); /* Fondo negro semitransparente para que el texto blanco resalte sobre la foto */
       color: #fff;
       padding: 20px 40px;
-      border-radius: 8px;
-      text-align: center;
-      animation: fadeIn 2s ease;
+      border-radius: 8px; /* Bordes redondeados del cuadro de texto */
+      text-align: center; /* Centra el texto dentro de su propio cuadro */
+      animation: fadeIn 2s ease; /* Aplica la animación de aparición suave (ver @keyframes fadeIn más abajo) */
     }
     .banner-texto h1 {
-      font-size: 2.5em;
+      font-size: 2.5em; /* Tamaño de letra del título principal del banner (2.5 veces el tamaño base) */
       margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      text-transform: uppercase; /* Convierte el texto a mayúsculas automáticamente */
+      letter-spacing: 2px; /* Espaciado entre letras para dar look más elegante */
     }
     .banner-texto p {
-      font-size: 1.2em;
+      font-size: 1.2em; /* Tamaño de letra del subtítulo del banner */
     }
 
-    /* Animaciones */
+    /* ============================================= 
+       ANIMACIONES REUTILIZABLES
+       ============================================= */
     @keyframes fadeIn {
+      /* Esta animación hace que un elemento pase de invisible a visible 
+         (efecto de aparición suave / "fade in") */
       from {opacity: 0;}
       to {opacity: 1;}
     }
     .nosotros section {
-      animation: fadeIn 1.5s ease;
+      animation: fadeIn 1.5s ease; /* Todas las secciones dentro de <main class="nosotros"> aparecen con efecto fade in */
     }
 
-    /* Valores grid */
+    /* ============================================= 
+       GRID (CUADRÍCULA) DE VALORES DE LA MARCA
+       ============================================= */
     .valores-grid {
       display: grid;
+      /* auto-fit + minmax crea columnas automáticas: cada tarjeta mide mínimo 220px,
+         y si hay espacio se estiran (1fr) para ocupar el ancho disponible.
+         Esto hace que el grid sea responsive sin usar media queries */
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
+      gap: 25px; /* Espacio entre cada tarjeta de valor */
       margin-top: 25px;
     }
     .valor {
@@ -54,46 +70,55 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave para dar efecto de "tarjeta elevada" */
+      transition: transform 0.3s ease; 
+      /* "transition" hace que el cambio de tamaño/posición (transform) se vea 
+         suave y no brusco cuando se activa el hover de abajo */
     }
     .valor:hover {
+      /* EFECTO ZOOM/ELEVACIÓN DE LAS TARJETAS: 
+         al pasar el mouse por encima, la tarjeta se desplaza 5px hacia arriba,
+         dando sensación de que "flota" o se levanta */
       transform: translateY(-5px);
     }
     .valor h3 {
-      color: #d4af37;
+      color: #d4af37; /* Color dorado, acorde a la temática de perfumes/elegancia */
       margin-bottom: 10px;
-      font-size: 1.2em;
+      font-size: 1.2em; /* Tamaño de letra del título de cada valor (Elegancia, Calidad, etc.) */
     }
 
-    /* Testimonios */
+    /* ============================================= 
+       SECCIÓN DE TESTIMONIOS
+       ============================================= */
     .testimonios {
-      background: #f9f9f9;
+      background: #f9f9f9; /* Fondo gris muy claro para diferenciar esta sección del resto */
       padding: 30px;
       border-radius: 8px;
       margin-top: 40px;
     }
     .testimonios h2 {
-      text-align: center;
+      text-align: center; /* Centra el título "Testimonios" */
       margin-bottom: 20px;
       color: #333;
     }
     .testimonio {
-      font-style: italic;
-      text-align: center;
+      font-style: italic; /* Letra en cursiva para diferenciar las frases de los clientes */
+      text-align: center; /* Centra cada frase de testimonio */
       margin-bottom: 15px;
       color: #555;
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Librería de íconos Font Awesome, cargada desde un CDN externo -->
 </head>
 <body>
 
+    <!-- Barra superior con mensaje promocional (cuotas, retiro en tienda, envío gratis) -->
     <div class="banner-js">
         <span id="mensaje">💳 Paga en hasta 6 cuotas sin interés — 🛍️ Retira gratis en tienda — 🚚 Envío gratis sobre $50.000</span>
     </div>
 
-  <!-- Menú superior -->
+  <!-- Menú superior de navegación -->
   <header class="menu">
     <div class="logo">
       <a href="index.html">
@@ -103,6 +128,7 @@
     <nav class="nav">
       <a href="index.html">Inicio</a>
       <a href="nosotros.html" class="activo">Quiénes Somos</a>
+      <!-- La clase "activo" resalta visualmente en qué página está el usuario actualmente -->
       <a href="productos.html">Productos</a>
       <a href="blogs.html">Blogs</a>
       <a href="contacto.html">Contacto</a>
@@ -113,7 +139,7 @@
     </nav>
   </header>
 
-  <!-- Banner de portada -->
+  <!-- Banner de portada con imagen de fondo y texto centrado (estilos definidos arriba en .banner-nosotros) -->
   <section class="banner-nosotros">
     <div class="banner-texto">
       <h1>Fragancias que inspiran</h1>
@@ -121,14 +147,16 @@
     </div>
   </section>
 
-  <!-- Contenido principal -->
+  <!-- Contenido principal de la página -->
   <main class="nosotros">
     <h1>Quiénes Somos</h1>
 
-    <!-- Historia con imagen -->
+    <!-- Sección: Historia de la marca, con imagen ilustrativa -->
     <section class="historia">
       <h2>Nuestra Historia</h2>
       <img src="img/historia_perfumes.jpg" alt="Historia de AURA Perfumes" style="width:100%; border-radius:8px; margin-bottom:20px;">
+      <!-- width:100% hace que la imagen ocupe todo el ancho de su contenedor (main),
+           lo que la centra visualmente dentro del bloque de contenido -->
       <p>
         En <strong>AURA Perfumes</strong> creemos que cada fragancia es una forma de expresión.  
         Nacimos con la visión de transformar momentos cotidianos en experiencias memorables,  
@@ -140,7 +168,7 @@
       </p>
     </section>
 
-    <!-- Misión -->
+    <!-- Sección: Misión de la empresa -->
     <section class="mision">
       <h2>Nuestra Misión</h2>
       <p>
@@ -150,7 +178,7 @@
       </p>
     </section>
 
-    <!-- Valores -->
+    <!-- Sección: Valores de la marca, mostrados en tarjetas dentro de un grid responsive (ver .valores-grid y .valor arriba) -->
     <section class="valores">
       <h2>Nuestros Valores</h2>
       <div class="valores-grid">
@@ -173,7 +201,7 @@
       </div>
     </section>
 
-    <!-- Inspiración -->
+    <!-- Sección: Inspiración de la marca -->
     <section class="inspiracion">
       <h2>Lo que nos inspira</h2>
       <p>
@@ -183,7 +211,7 @@
       </p>
     </section>
 
-    <!-- Testimonios -->
+    <!-- Sección: Testimonios de clientes (estilos centrados definidos en .testimonios y .testimonio arriba) -->
     <section class="testimonios">
       <h2>Testimonios</h2>
       <p class="testimonio">“Cada fragancia es un recuerdo eterno.”</p>
@@ -192,11 +220,12 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- Pie de página -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
     <p>Síguenos en Instagram y Facebook</p>
   </footer>
   <script src="js/menu-rol.js"></script>
+  <!-- Script externo que controla el menú según el rol del usuario (registro/login) -->
 </body>
 </html>

@@ -1,14 +1,21 @@
+<!-- Carla Acuña-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- El viewport asegura que la página se vea bien adaptada en celulares y tablets -->
   <title>El arte de la fragancia - AURA Perfumes</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Esta página no tiene <style> propio, así que todo el diseño (centrado de imágenes,
+       tamaños de letra, ancho del artículo, etc.) viene definido en css/style.css,
+       probablemente bajo clases como .blog-page y .blog-articulo -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Librería de íconos Font Awesome, cargada desde un CDN externo -->
 </head>
 <body>
-  <!-- Menú -->
+  <!-- Menú superior de navegación -->
   <header class="menu">
     <div class="logo">
       <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
@@ -18,6 +25,7 @@
       <a href="nosotros.html">Quiénes Somos</a>
       <a href="productos.html">Productos</a>
       <a href="blogs.html" class="activo">Blogs</a>
+      <!-- La clase "activo" resalta visualmente que el usuario está dentro de la sección de Blogs -->
       <a href="contacto.html">Contacto</a>
       <span id="menu-usuario">
         <a href="registro.html">Registro</a>
@@ -26,24 +34,26 @@
     </nav>
   </header>
 
-  <!-- Contenido del blog -->
+  <!-- Contenido del artículo individual del blog -->
   <main class="blog-page">
     <article class="blog-articulo">
-      <!-- Título principal -->
+      <!-- Título principal del artículo -->
       <h1>El arte de la fragancia</h1>
       <p class="autor-fecha"><strong>Por Valentina Ríos</strong> · 10 Septiembre 2026</p>
+      <!-- Autor y fecha de publicación del blog -->
 
-      <!-- Imagen destacada -->
+      <!-- Imagen destacada del artículo (el centrado y tamaño de esta imagen 
+           se controla desde la clase .blog-imagen en css/style.css) -->
       <div class="blog-imagen">
         <img src="img/img_blog1.jpg" alt="El arte de la fragancia">
       </div>
 
-      <!-- Intro -->
+      <!-- Párrafo introductorio del blog -->
       <p class="intro">
         Una fragancia puede ser un pasaje directo a un recuerdo. Para mí, el olor cítrico de la bergamota siempre me lleva a una mañana de verano en la playa, con la brisa salada y el sol recién despertando.
       </p>
 
-      <!-- Secciones narrativas -->
+      <!-- Sección narrativa: explica las distintas "notas" de un perfume -->
       <h2>Notas que cuentan historias</h2>
       <p>
         Las <strong>notas de salida</strong> son como el primer saludo: frescas, chispeantes, llenas de energía.  
@@ -51,7 +61,8 @@
         Y las <strong>notas de fondo</strong> son la memoria que permanece, cálida y envolvente como un abrazo en invierno.
       </p>
 
-      <!-- Imagen secundaria -->
+      <!-- Imagen secundaria del artículo, con clase extra "secundaria" 
+           (probablemente con un tamaño o estilo distinto al de la imagen destacada, definido en el CSS) -->
       <div class="blog-imagen secundaria">
         <img src="img/img_blog1_extra.jpg" alt="Detalle de frascos de perfume sobre un tocador elegante">
       </div>
@@ -63,7 +74,8 @@
         <strong>Paco Rabanne Invictus</strong> es energía pura, pensado para quienes conquistan cada día.
       </p>
 
-      <!-- Cita editorial -->
+      <!-- Cita editorial destacada (el estilo de esta frase, como el tamaño de letra 
+           o la línea decorativa, se define en el CSS bajo el selector "blockquote") -->
       <blockquote>
         “Un perfume no se usa, se vive.”
       </blockquote>
@@ -75,15 +87,16 @@
         <li><strong>Para ocasiones especiales:</strong> florales sofisticados o amaderados profundos.</li>
       </ul>
 
-      <!-- Botón de acción -->
+      <!-- Botón de llamado a la acción, lleva a la página de productos -->
       <a href="productos.html" class="btn">Explora nuestras fragancias</a>
     </article>
   </main>
 
-  <!-- Footer -->
+  <!-- Pie de página -->
   <footer>
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
   <script src="js/menu-rol.js"></script>
+  <!-- Script externo que controla el menú según el rol del usuario (registro/login) -->
 </body>
 </html>

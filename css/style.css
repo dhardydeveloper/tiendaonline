@@ -116,47 +116,55 @@ nav.nav a:hover {
   margin-top: 10px;
 }
 
-/* Página Quiénes Somos */
+/* ============================================= 
+   PÁGINA QUIÉNES SOMOS  - Carla Acuña 
+   ============================================= */
 .nosotros {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 20px;
-  line-height: 1.7;
+  max-width: 1000px; /* Ancho máximo del contenido, para que no se estire demasiado en pantallas grandes */
+  margin: 40px auto; /* margin: 40px arriba/abajo y "auto" a los lados = centra todo el bloque horizontalmente en la página */
+  padding: 20px; /* Espacio interno entre el borde del bloque y su contenido */
+  line-height: 1.7; /* Espaciado entre líneas de texto, para que los párrafos se lean más cómodos */
 }
 
 .nosotros h1 {
-  text-align: center;
-  font-size: 2.5em;
+  text-align: center; /* Centra el título "Quiénes Somos" */
+  font-size: 2.5em; /* Tamaño de letra del título principal (2.5 veces el tamaño base) */
   margin-bottom: 40px;
   color: #d4af37; /* dorado */
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-transform: uppercase; /* Convierte el texto a mayúsculas automáticamente */
+  letter-spacing: 2px; /* Espaciado entre letras para dar un look más elegante */
 }
 
 .nosotros section {
-  margin-bottom: 50px;
+  margin-bottom: 50px; /* Separación entre cada sección (Historia, Misión, Valores, etc.) */
 }
 
 .nosotros h2 {
-  font-size: 1.8em;
+  font-size: 1.8em; /* Tamaño de letra de los subtítulos de cada sección */
   margin-bottom: 15px;
   color: #333;
-  border-bottom: 2px solid #d4af37;
-  display: inline-block;
-  padding-bottom: 5px;
+  border-bottom: 2px solid #d4af37; /* Línea dorada debajo del subtítulo, a modo de subrayado decorativo */
+  display: inline-block; /* Hace que el borde inferior solo abarque el ancho del texto, no toda la línea */
+  padding-bottom: 5px; /* Espacio entre el texto y la línea dorada de abajo */
 }
 
 .nosotros p {
-  font-size: 1.1em;
+  font-size: 1.1em; /* Tamaño de letra de los párrafos normales */
   color: #555;
   margin-bottom: 15px;
 }
 
-/* Valores en formato grid */
+/* ============================================= 
+   VALORES EN FORMATO GRID (CUADRÍCULA)
+   ============================================= */
 .valores-grid {
   display: grid;
+  /* auto-fit + minmax crea columnas automáticas: cada tarjeta mide mínimo 220px,
+     y si hay espacio disponible se estiran (1fr) para llenar el ancho.
+     Esto hace que el grid sea responsive (se adapta a distintos anchos de pantalla)
+     sin necesidad de usar media queries */
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+  gap: 25px; /* Espacio entre cada tarjeta de valor */
   margin-top: 25px;
 }
 
@@ -165,43 +173,53 @@ nav.nav a:hover {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave para dar efecto de "tarjeta elevada" */
+  transition: transform 0.3s ease; 
+  /* "transition" hace que el cambio de posición (transform) al pasar el mouse 
+     se vea suave y progresivo, en vez de un salto brusco */
 }
 
 .valor:hover {
+  /* EFECTO ZOOM/ELEVACIÓN DE LAS TARJETAS: 
+     al pasar el mouse por encima, la tarjeta se desplaza 5px hacia arriba,
+     dando sensación de que "flota" o se levanta levemente */
   transform: translateY(-5px);
 }
 
 .valor h3 {
-  color: #d4af37;
+  color: #d4af37; /* dorado, acorde a la temática de perfumes/elegancia */
   margin-bottom: 10px;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Tamaño de letra del título de cada valor (Elegancia, Calidad, etc.) */
 }
 
 .valor p {
-  font-size: 0.95em;
+  font-size: 0.95em; /* Tamaño de letra un poco más pequeño que el texto normal, para la descripción de cada valor */
   color: #444;
 }
 
-/* Inspiración */
+/* ============================================= 
+   SECCIÓN "LO QUE NOS INSPIRA"
+   ============================================= */
 .inspiracion {
-  background: #f9f9f9;
+  background: #f9f9f9; /* Fondo gris muy claro para diferenciar esta sección del resto */
   padding: 25px;
-  border-left: 4px solid #d4af37;
+  border-left: 4px solid #d4af37; /* Línea dorada gruesa al lado izquierdo, a modo de detalle decorativo (estilo "cita destacada") */
   border-radius: 6px;
 }
 
 .inspiracion h2 {
   margin-bottom: 10px;
-  font-size: 1.6em;
+  font-size: 1.6em; /* Tamaño de letra del subtítulo de esta sección */
   color: #333;
 }
 
 .inspiracion p {
-  font-size: 1.05em;
+  font-size: 1.05em; /* Tamaño de letra del párrafo de esta sección */
   color: #555;
 }
+
+
+
 
 
 
@@ -434,48 +452,65 @@ button:hover {
 
 
 
-/* blogs */
+/* blogs- Carla Acuña  */
 
+/* ============================================= 
+   BANNER SUPERIOR DE LA PÁGINA DE BLOGS
+   ============================================= */
 .banner-blogs {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 400px; /* Alto fijo del banner */
   background: url('img/banner_blogs.jpg') no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* La imagen de fondo se centra tanto horizontal como verticalmente 
+     gracias a "center center", y "cover" hace que la imagen cubra 
+     todo el espacio del banner sin deformarse */
+  display: flex; /* Flexbox para centrar el contenido interno (.banner-texto) */
+  align-items: center;    /* Centra el contenido verticalmente dentro del banner */
+  justify-content: center; /* Centra el contenido horizontalmente dentro del banner */
 }
 
 .banner-blogs .banner-texto {
   background: rgba(255,255,255,0.7); /* recuadro blanco semitransparente */
+  /* A diferencia de otros banners (que usan negro semitransparente), 
+     aquí el recuadro de texto es blanco semitransparente, por eso el color 
+     de letra por defecto es negro (#000) para que se lea bien */
   color: #000;
   padding: 20px 40px;
-  border-radius: 10px;
-  text-align: center;
+  border-radius: 10px; /* Bordes redondeados del cuadro de texto */
+  text-align: center; /* Centra el texto dentro del cuadro */
 }
 
 .banner-blogs .banner-texto h1 {
-  font-size: 2.5em;
+  font-size: 2.5em; /* Tamaño de letra del título "Revista AURA" (2.5 veces el tamaño base) */
   margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-transform: uppercase; /* Convierte el texto a mayúsculas automáticamente */
+  letter-spacing: 2px; /* Espaciado entre letras para dar un look más elegante */
   color: #d4af37; /* dorado */
 }
 
 .banner-blogs .banner-texto p {
-  font-size: 1.2em;
-  font-style: italic;
+  font-size: 1.2em; /* Tamaño de letra del subtítulo bajo el título */
+  font-style: italic; /* Letra en cursiva para dar un toque más elegante */
 }
 
 
 
+/* ============================================= 
+   PIE DE PÁGINA (FOOTER) GENERAL DEL SITIO
+   ============================================= */
 footer {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    margin-top: auto;
+    background-color: #000; /* Fondo negro para el pie de página */
+    color: #fff; /* Texto blanco para que contraste con el fondo negro */
+    text-align: center; /* Centra el texto (copyright, redes sociales, etc.) dentro del footer */
+    padding: 20px; /* Espacio interno arriba/abajo y a los costados */
+    margin-top: auto; 
+    /* margin-top: auto empuja el footer hacia abajo cuando el contenedor padre 
+       usa flexbox en columna, ayudando a que el footer quede "pegado" al final 
+       de la página aunque el contenido sea corto */
 }
+
+
 
 
 
@@ -640,7 +675,7 @@ footer {
 }
 
 /* =========================================
-   CONTACTO
+   CONTACTO - carla A- Meyling.
 ========================================= */
 
 /* Banner Contacto */
@@ -649,16 +684,19 @@ footer {
   width: 100%;
   height: 400px;
   background: url('../img/banner_contacto.jpg') no-repeat center center/cover;
-  display: flex;
+    /* La imagen de fondo se centra tanto horizontal como verticalmente 
+     gracias a "center center", y "cover" hace que la imagen cubra 
+     todo el espacio del banner sin deformarse ni dejar espacios vacíos */
+  display: flex;  /* Flexbox para centrar el contenido interno (.banner-texto) */
   align-items: center;
   justify-content: center;
 }
 
 /* Recuadro transparente con texto encima */
 .banner-contacto .banner-texto {
-  background: rgba(0,0,0,0.5); /* negro semitransparente */
+  background: rgba(0,0,0,0.5);  /* negro semitransparente, para que el texto blanco resalte sobre la foto de fondo */
   color: #fff;
-  padding: 20px 40px;
+  padding: 20px 40px; /*espacio entre el borde y el contenido*/
   border-radius: 10px;
   text-align: center;   /* centra el texto dentro del cuadro */
 }
@@ -673,6 +711,11 @@ footer {
   font-style: italic;
 }
 
+
+/* ============================================= 
+   CONTENEDOR DEL FORMULARIO DE CONTACTO
+   ============================================= */
+
 /* Formulario Contacto */
 .contacto-container {
   max-width: 600px;
@@ -685,12 +728,13 @@ footer {
 
 .contacto-form {
   display: flex;
-  flex-direction: column; /* asegura que los campos vayan hacia abajo */
-  gap: 15px;
+  flex-direction: column; /* asegura que los campos vayan hacia abajo (uno debajo del otro, en vez de en fila) */
+  gap: 15px; /* Espacio uniforme entre cada campo del formulario (label, input, textarea, button) */
 }
 
+
 .contacto-form label {
-  font-weight: bold;
+  font-weight: bold; /* Texto en negrita para las etiquetas (Nombre, Correo, Mensaje) */
   color: #333;
 }
 
@@ -698,15 +742,15 @@ footer {
 .contacto-form textarea {
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 6px; /* Esquinas ligeramente redondeadas en los campos */
   font-family: inherit;
-  font-size: 1em;
+  font-size: 1em; /* Tamaño de letra estándar dentro de los campos */
 }
 
 .contacto-form input:focus,
-.contacto-form textarea:focus {
+.contacto-form textarea:focus {  /* Estilo que se aplica cuando el usuario hace clic (enfoca) un campo del formulario */
   border-color: #d4af37; /* dorado al enfocar */
-  outline: none;
+  outline: none;  /* Quita el contorno azul por defecto del navegador al hacer foco */
 }
 
 .contacto-form button {
@@ -716,8 +760,8 @@ footer {
   padding: 12px;
   border-radius: 6px;
   font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
+  cursor: pointer; /* Cambia el cursor a "manito" al pasar por encima, indicando que es clickeable */
+  transition: background 0.3s;  /* Hace que el cambio de color de fondo (en el hover de abajo) sea suave y no brusco */
 }
 
 .contacto-form button:hover {
