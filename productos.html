@@ -47,55 +47,7 @@
   <script src="js/script.js"></script>
   <script src="js/productos.js"></script>
 
-  <!-- 3. SCRIPT PARA EVALUAR EL ROL Y MOSTRAR EL CARRITO -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const userRole = localStorage.getItem('userRole'); // Detecta 'cliente', 'admin' o null
-      
-      // Busca el <span id="menu-usuario"> que está vacío en el <nav>
-      const contenedorUsuario = document.getElementById('menu-usuario'); 
-
-      if (!contenedorUsuario) return;
-
-      if (userRole === 'cliente') {
-        // Muestra el Carrito + opción Cerrar Sesión para Comprador
-        contenedorUsuario.innerHTML = `
-          <a href="carrito.html" style="color: #c5a059; font-size: 1.2rem; margin-left: 10px;" title="Mi Carrito de Compras">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </a>
-          <a href="#" id="btn-logout" style="color: #ff4d4d; font-weight: bold; margin-left: 10px;">Cerrar Sesión</a>
-        `;
-      } else if (userRole === 'admin') {
-        // Muestra Admin + Carrito + Cerrar Sesión para Administrador
-        contenedorUsuario.innerHTML = `
-          <a href="admin.html" style="color: #c5a059; font-weight: bold;">Admin</a>
-          <a href="carrito.html" style="color: #c5a059; font-size: 1.2rem; margin-left: 10px;" title="Ver Carrito">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </a>
-          <a href="#" id="btn-logout" style="color: #ff4d4d; font-weight: bold; margin-left: 10px;">Cerrar Sesión</a>
-        `;
-      } else {
-        // Muestra opciones por defecto para visitantes
-        contenedorUsuario.innerHTML = `
-          <a href="registro.html">Registro</a>
-          <a href="login.html">Login</a>
-           <a href="carrito.html" style="color: #c5a059; font-size: 1.2rem; margin-left: 10px;" title="Mi Carrito de Compras">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </a>
-        `;
-      }
-
-      // Lógica de Cierre de Sesión
-      // Cierre de sesión: escucha clics en TODO el documento, pero solo reacciona si el clic fue justo en el botón "Cerrar Sesión".
-      document.addEventListener('click', (e) => {
-        if (e.target && e.target.id === 'btn-logout') {
-          e.preventDefault();
-          localStorage.removeItem('userRole'); // borra el rol guardado
-          alert('Has cerrado sesión correctamente.');
-          window.location.href = 'login.html';
-        }
-      });
-    });
-  </script>
+  <!-- 3. SCRIPT PARA EVALUAR EL ROL Y MOSTRAR EL CARRITO (compartido con todas las páginas) -->
+  <script src="js/menu-rol.js"></script>
 </body>
 </html>

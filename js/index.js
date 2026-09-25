@@ -38,6 +38,7 @@ if (contenedorDestacados) {
     const destacados = productos.filter(producto =>
         producto.id === 2 ||
         producto.id === 3 ||
+        producto.id === 5 ||
         producto.id === 7
     );
 
