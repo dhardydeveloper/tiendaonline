@@ -132,19 +132,6 @@
       background-color: #a38241;
     }
 
-    .btn-cancelar {
-      grid-column: 1 / -1;
-      background-color: #6c757d;
-      color: #ffffff;
-      border: none;
-      padding: 10px;
-      font-weight: bold;
-      font-size: 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: none;
-    }
-
     .tabla-usuarios {
       width: 100%;
       border-collapse: separate;
@@ -252,32 +239,28 @@
 
     <!-- FORMULARIO NUEVO USUARIO -->
     <div class="card-seccion">
-      <h3 id="formTitulo"><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario</h3>
+      <h3><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario</h3>
       <form class="form-admin-usuario" id="formUsuario">
-        <!-- Campo oculto para controlar la edición -->
-        <input type="hidden" id="usuarioId">
-
         <div class="form-group">
           <label>Nombre Completo</label>
-          <input type="text" id="nombreUsuario" placeholder="Ej. Alexandra Sujheil" required>
+          <input type="text" placeholder="Ej. Alexandra Sujheil" required>
         </div>
         <div class="form-group">
           <label>Correo Electrónico</label>
-          <input type="email" id="correoUsuario" placeholder="correo@ejemplo.com" required>
+          <input type="email" placeholder="correo@ejemplo.com" required>
         </div>
         <div class="form-group">
           <label>Contraseña</label>
-          <input type="password" id="passwordUsuario" placeholder="••••••••" required>
+          <input type="password" placeholder="••••••••" required>
         </div>
         <div class="form-group">
           <label>Rol de Usuario</label>
-          <select id="rolUsuario" required>
+          <select required>
             <option value="cliente">Cliente / Comprador</option>
             <option value="admin">Administrador</option>
           </select>
         </div>
-        <button type="submit" class="btn-guardar" id="btnGuardar"><i class="fa-solid fa-user-check"></i> Crear Usuario</button>
-        <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar Edición</button>
+        <button type="submit" class="btn-guardar"><i class="fa-solid fa-user-check"></i> Crear Usuario</button>
       </form>
     </div>
 
@@ -294,8 +277,27 @@
             <th style="text-align: center;">Acciones</th>
           </tr>
         </thead>
-        <tbody id="tablaUsuariosBody">
-          <!-- Carga dinámicamente desde JS -->
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><b>Administrador General</b></td>
+            <td>admin@aura.com</td>
+            <td><span class="badge-rol-admin"><i class="fa-solid fa-user-shield"></i> Administrador</span></td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>Cliente Prueba</b></td>
+            <td>cliente@gmail.com</td>
+            <td><span class="badge-rol-cliente"><i class="fa-solid fa-user"></i> Cliente</span></td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -306,234 +308,20 @@
   </footer>
 
   <script>
-    // Se ejecuta una vez que el HTML está completamente cargado en la página
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Control de Acceso y Sesión
-      // Obtiene el rol guardado en la memoria local del navegador
       const userRole = localStorage.getItem('userRole');
       
-      // Verifica si el usuario no tiene permisos de administrador
       if (userRole !== 'admin') {
-        // Alerta que no tiene permisos
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
-        // Redirige al login para identificarse
         window.location.href = 'login.html';
-        // Detiene la ejecución del script
-        return;
       }
 
-      // Asigna evento al botón de "Cerrar Sesión" al hacer clic
       document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
-        // Evita la acción por defecto del enlace '#'
         e.preventDefault();
-        // Borra la información guardada en localStorage
         localStorage.clear();
-        // Muestra mensaje de confirmación
         alert('Sesión cerrada correctamente.');
-        // Redirige a la pantalla de login
         window.location.href = 'login.html';
       });
-
-      // 2. Usuarios por defecto (si localStorage está vacío)
-      // Array con usuarios base para inicializar el sistema por primera vez
-      const usuariosIniciales = [
-        { id: 1, nombre: 'Administrador General', correo: 'admin@aura.com', password: '123', rol: 'admin' },
-        { id: 2, nombre: 'Cliente Prueba', correo: 'cliente@gmail.com', password: '123', rol: 'cliente' }
-      ];
-
-      // Función que obtiene los usuarios desde localStorage
-      function obtenerUsuarios() {
-        // Lee el string de usuarios almacenado
-        const guardados = localStorage.getItem('usuarios');
-        // Si no existen usuarios guardados
-        if (!guardados) {
-          // Guarda los usuarios por defecto formateados a JSON string
-          localStorage.setItem('usuarios', JSON.stringify(usuariosIniciales));
-          // Retorna la lista inicial de usuarios
-          return usuariosIniciales;
-        }
-        // Convierte el texto JSON recuperado a un arreglo JavaScript
-        return JSON.parse(guardados);
-      }
-
-      // Función que guarda el arreglo actualizado de usuarios en localStorage
-      function guardarUsuarios(usuarios) {
-        // Convierte el objeto JavaScript a un string de texto formateado en JSON
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-      }
-
-      // Elementos del DOM
-      // Guarda la referencia del elemento formulario por su ID
-      const form = document.getElementById('formUsuario');
-      // Guarda la referencia del campo oculto de ID del usuario
-      const usuarioIdInput = document.getElementById('usuarioId');
-      // Guarda la referencia del input para el nombre
-      const nombreInput = document.getElementById('nombreUsuario');
-      // Guarda la referencia del input para el correo
-      const correoInput = document.getElementById('correoUsuario');
-      // Guarda la referencia del input para la contraseña
-      const passwordInput = document.getElementById('passwordUsuario');
-      // Guarda la referencia del selector para el rol
-      const rolSelect = document.getElementById('rolUsuario');
-      // Guarda la referencia del cuerpo de la tabla para renderizar los datos
-      const tablaBody = document.getElementById('tablaUsuariosBody');
-      // Guarda la referencia del botón principal del formulario (Crear/Actualizar)
-      const btnGuardar = document.getElementById('btnGuardar');
-      // Guarda la referencia del botón secundario para cancelar la edición
-      const btnCancelar = document.getElementById('btnCancelar');
-      // Guarda la referencia del título del formulario para cambiar dinámicamente según la acción
-      const formTitulo = document.getElementById('formTitulo');
-
-      // Renderizar tabla
-      // Función que lee los usuarios e imprime las filas dentro del cuerpo de la tabla
-      function renderizarTabla() {
-        // Obtiene la lista actual de usuarios
-        const usuarios = obtenerUsuarios();
-        // Limpia el contenido HTML actual de la tabla
-        tablaBody.innerHTML = '';
-
-        // Valida si la lista de usuarios está vacía
-        if (usuarios.length === 0) {
-          // Muestra un mensaje en la tabla indicando que no hay registros
-          tablaBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay usuarios registrados.</td></tr>';
-          // Finaliza la ejecución de la función
-          return;
-        }
-
-        // Recorre iterativamente cada objeto usuario de la lista
-        usuarios.forEach(u => {
-          // Crea un elemento HTML tr (fila de tabla) en memoria
-          const tr = document.createElement('tr');
-          // Genera la etiqueta dinámica según sea el rol de administrador o cliente
-          const badgeRol = u.rol === 'admin' 
-            ? `<span class="badge-rol-admin"><i class="fa-solid fa-user-shield"></i> Administrador</span>`
-            : `<span class="badge-rol-cliente"><i class="fa-solid fa-user"></i> Cliente</span>`;
-
-          // Inyecta las celdas con la información del usuario y los botones con sus funciones onclick asignadas
-          tr.innerHTML = `
-            <td>${u.id}</td>
-            <td><b>${u.nombre}</b></td>
-            <td>${u.correo}</td>
-            <td>${badgeRol}</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar" onclick="prepararEdicion(${u.id})"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar" onclick="eliminarUsuario(${u.id})"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          `;
-          // Agrega la fila recién creada al cuerpo de la tabla en el documento
-          tablaBody.appendChild(tr);
-        });
-      }
-
-      // Guardar / Actualizar Usuario
-      // Escucha el evento de envío del formulario al hacer submit
-      form.addEventListener('submit', (e) => {
-        // Detiene el comportamiento predeterminado del navegador de recargar la página
-        e.preventDefault();
-        // Obtiene el arreglo actualizado de usuarios
-        let usuarios = obtenerUsuarios();
-        // Captura el valor del ID del campo oculto
-        const id = usuarioIdInput.value;
-        // Obtiene el texto ingresado en nombre omitiendo espacios sobrantes
-        const nombre = nombreInput.value.trim();
-        // Obtiene el texto ingresado en correo omitiendo espacios sobrantes
-        const correo = correoInput.value.trim();
-        // Obtiene la contraseña ingresada
-        const password = passwordInput.value.trim();
-        // Obtiene la opción elegida del select de roles
-        const rol = rolSelect.value;
-
-        // Comprueba si el campo id tiene un valor (Modo Edición)
-        if (id) {
-          // Edición
-          // Mapea la lista buscando el id para actualizar los datos correspondientes
-          usuarios = usuarios.map(u => u.id == id ? { id: Number(id), nombre, correo, password, rol } : u);
-          // Alerta al usuario de la correcta modificación
-          alert('Usuario actualizado correctamente.');
-        } else {
-          // Creación
-          // Genera un ID autoincremental buscando el valor máximo registrado
-          const nuevoId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
-          // Añade el nuevo usuario estructurado al final del arreglo
-          usuarios.push({ id: nuevoId, nombre, correo, password, rol });
-          // Muestra mensaje de éxito en la creación
-          alert('Usuario creado exitosamente.');
-        }
-
-        // Guarda el arreglo actualizado de usuarios en la memoria local
-        guardarUsuarios(usuarios);
-        // Resetea los campos del formulario
-        limpiarFormulario();
-        // Vuelve a generar la vista de la tabla actualizada
-        renderizarTabla();
-      });
-
-      // Preparar edición
-      // Asigna la función al objeto global window para permitir invocarla mediante onclick directo en el HTML
-      window.prepararEdicion = function(id) {
-        // Obtiene los usuarios existentes
-        const usuarios = obtenerUsuarios();
-        // Busca y retorna el usuario que coincida exactamente con el id pasado por parámetro
-        const user = usuarios.find(u => u.id === id);
-        // Verifica si se encontró la coincidencia
-        if (user) {
-          // Carga el ID en el input oculto para señalar que está en modo edición
-          usuarioIdInput.value = user.id;
-          // Rellena el campo de texto con el nombre actual del usuario
-          nombreInput.value = user.nombre;
-          // Rellena el campo con el correo del usuario
-          correoInput.value = user.correo;
-          // Carga la clave del usuario o asigna una cadena vacía en caso de no existir
-          passwordInput.value = user.password || '';
-          // Selecciona la opción de rol correspondiente
-          rolSelect.value = user.rol;
-
-          // Modifica el título visual para reflejar el estado de edición
-          formTitulo.innerHTML = '<i class="fa-solid fa-pen-to-square" style="color: #c5a059;"></i> Editar Usuario';
-          // Modifica el texto e icono del botón principal
-          btnGuardar.innerHTML = '<i class="fa-solid fa-rotate"></i> Actualizar Usuario';
-          // Muestra el botón de cancelar la edición
-          btnCancelar.style.display = 'block';
-        }
-      };
-
-      // Eliminar Usuario
-      // Asigna la función de eliminación al scope global window
-      window.eliminarUsuario = function(id) {
-        // Solicita confirmación explícita mediante un cuadro emergente
-        if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-          // Obtiene los usuarios desde la memoria
-          let usuarios = obtenerUsuarios();
-          // Filtra y retiene solo aquellos usuarios cuyo id difiera del id seleccionado a borrar
-          usuarios = usuarios.filter(u => u.id !== id);
-          // Sobrescribe el almacenamiento con el listado reducido
-          guardarUsuarios(usuarios);
-          // Vuelve a construir dinámicamente las filas de la tabla
-          renderizarTabla();
-        }
-      };
-
-      // Limpiar formulario
-      // Asigna la acción de reseteo al presionar el botón Cancelar Edición
-      btnCancelar.addEventListener('click', limpiarFormulario);
-
-      // Función encargada de restaurar el estado original del formulario
-      function limpiarFormulario() {
-        // Blanquea todos los campos de entrada del formulario
-        form.reset();
-        // Limpia el input oculto de ID
-        usuarioIdInput.value = '';
-        // Restablece el título original
-        formTitulo.innerHTML = '<i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Registrar Nuevo Usuario';
-        // Restablece el texto original del botón principal
-        btnGuardar.innerHTML = '<i class="fa-solid fa-user-check"></i> Crear Usuario';
-        // Oculta el botón de cancelar
-        btnCancelar.style.display = 'none';
-      }
-
-      // Carga inicial
-      // Invoca la construcción inicial de la tabla al acceder a la página
-      renderizarTabla();
     });
   </script>
 

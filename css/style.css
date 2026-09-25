@@ -427,17 +427,7 @@ button:hover {
   background: #a67c00;
 }
 
-.cart-link {
-  color: #c5a059;
-  font-size: 1.2rem;
-  margin-left: 15px;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
 
-.cart-link:hover {
-  opacity: 0.8;
-}
 
 
 /* blogs */

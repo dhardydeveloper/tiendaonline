@@ -1,96 +1,81 @@
-<!DOCTYPE html> <!-- Define la estructura del documento bajo el estándar HTML5 -->
-<html lang="es"> <!-- Inicia la etiqueta raíz del documento en idioma español -->
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8"> <!-- Configura la codificación de caracteres en UTF-8 para admitir caracteres especiales como tildes -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajusta la escala de visualización para dispositivos móviles -->
-  <title>Login - AURA Perfumes</title> <!-- Define el título que aparece en la pestaña del navegador -->
-  <link rel="stylesheet" href="css/style.css"> <!-- Vincula el archivo de estilos CSS externo para dar formato a la página -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AURA Perfumes</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Contenedor del mensaje promocional superior -->
     <div class="banner-js">
-        <!-- Texto con promociones y facilidades de pago -->
         <span id="mensaje">💳 Paga en hasta 6 cuotas sin interés — 🛍️ Retira gratis en tienda — 🚚 Envío gratis sobre $50.000</span>
     </div>
     
   <!-- Menú de navegación -->
   <header class="menu">
-    <!-- Contenedor del logotipo del sitio -->
     <div class="logo">
-      <!-- Enlace con la imagen del logo que redirige a la página de inicio -->
       <a href="index.html"><img src="img/logo_perfume_sin_fondo.png" alt="Logo"></a>
     </div>
-    <!-- Sección con los enlaces del menú principal -->
     <nav class="nav">
-      <a href="index.html">Inicio</a> <!-- Enlace a la página principal -->
-      <a href="nosotros.html">Quiénes Somos</a> <!-- Enlace a la información de la empresa -->
-      <a href="productos.html">Productos</a> <!-- Enlace al catálogo de productos -->
-      <a href="blogs.html">Blogs</a> <!-- Enlace a la sección de publicaciones y noticias -->
-      <a href="contacto.html">Contacto</a> <!-- Enlace al formulario de contacto -->
-      <a href="registro.html">Registro</a> <!-- Enlace a la página de registro de usuarios -->
-      <a href="login.html">Login</a> <!-- Enlace a la página actual de inicio de sesión -->
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Quiénes Somos</a>
+      <a href="productos.html">Productos</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="contacto.html">Contacto</a>
+      <span id="menu-usuario">
+        <a href="registro.html">Registro</a>
+        <a href="login.html">Login</a>
+      </span>
     </nav>
   </header>
 
   <!-- Formulario de Iniciar Sesión con Selector de Rol -->
   <main class="login-container">
-    <!-- Tarjeta contenedora con estilos CSS integrados para centrar y enmarcar el formulario -->
     <div class="card-login" style="max-width: 400px; margin: 40px auto; padding: 25px; border: 1px solid #ddd; border-radius: 8px; background-color: #ffffff; text-align: center;">
-      <!-- Encabezado principal del formulario -->
       <h2 style="margin-bottom: 20px;">Iniciar Sesión</h2>
       
-      <!-- Formulario de autenticación identificado por la ID "loginForm" -->
       <form id="loginForm">
         <!-- Selector de Tipo de Usuario / Rol -->
         <div style="margin-bottom: 15px; text-align: left;">
-          <!-- Etiqueta informativa vinculada al selector mediante la propiedad "for" -->
           <label for="tipoUsuario" style="font-weight: bold; display: block; margin-bottom: 5px;">Tipo de Usuario:</label>
-          <!-- Desplegable obligatorio para elegir el tipo de perfil de acceso -->
           <select id="tipoUsuario" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" required>
-            <option value="cliente">Cliente / Comprador</option> <!-- Opción para ingresar como cliente -->
-            <option value="admin">Administrador</option> <!-- Opción para ingresar como administrador -->
+            <option value="cliente">Cliente / Comprador</option>
+            <option value="admin">Administrador</option>
           </select>
         </div>
 
-        <!-- Campo Correo / Usuario con restricción de dominios -->
+        <!-- Campo Correo / Usuario -->
         <div style="margin-bottom: 15px; text-align: left;">
-          <!-- Etiqueta para el campo de correo -->
           <label for="correo" style="font-weight: bold; display: block; margin-bottom: 5px;">Correo o Usuario:</label>
-          <!-- Campo de entrada de texto obligatorio -->
-          <!-- Comentario: pattern restringe dominios a hotmail.com, duocuc.cl o gmail.com; title advierte la restricción -->
-          <input 
-            type="text" 
-            id="correo" 
-            placeholder="Ingrese correo autorizado" 
-            style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" 
-            pattern="^[a-zA-Z0-9._%+-]+@(hotmail\.com|duocuc\.cl|gmail\.com)$" 
-            title="El correo debe finalizar obligatoriamente en @hotmail.com, @duocuc.cl o @gmail.com" 
-            required> <!-- Indica que el llenado del campo es obligatorio antes de enviar -->
+          <input type="text" id="correo" placeholder="Ingrese correo o usuario" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
         </div>
 
         <!-- Campo Contraseña -->
         <div style="margin-bottom: 20px; text-align: left;">
-          <!-- Etiqueta para el campo de clave -->
           <label for="password" style="font-weight: bold; display: block; margin-bottom: 5px;">Contraseña:</label>
-          <!-- Campo de tipo password para enmascarar los caracteres al escribir -->
           <input type="password" id="password" placeholder="Ingrese contraseña" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
         </div>
 
         <!-- Botón de Ingresar -->
-        <!-- Botón que activa el evento 'submit' para procesar el formulario -->
         <button type="submit" class="btn-ingresar" style="background-color: #d4af37; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px;">Ingresar</button>
       </form>
+
+      <!-- Instrucciones de acceso de prueba -->
+      <div style="margin-top: 20px; font-size: 13px; background-color: #f8f9fa; padding: 12px; border-radius: 5px; border: 1px solid #eee; text-align: left;">
+        <p style="margin: 0 0 5px 0;"><strong>Datos de prueba:</strong></p>
+        <p style="margin: 3px 0;">👑 <b>Administrador:</b> Selecciona <i>Administrador</i> | Usuario: <code>admin</code> | Clave: <code>admin123</code></p>
+        <p style="margin: 3px 0;">🛒 <b>Comprador:</b> Selecciona <i>Cliente / Comprador</i> | Usa cualquier correo y clave</p>
+      </div>
 
     </div>
   </main>
 
-  <!-- Pie de página del sitio web -->
   <footer>
-    <!-- Muestra los derechos de autor de la tienda -->
     <p>&copy; 2026 AURA Perfumes - Todos los derechos reservados</p>
   </footer>
 
-  <!-- Carga el script JavaScript externo desde la ruta js/login.js que maneja la lógica de inicio de sesión -->
   <script src="js/login.js"></script>
+  <script src="js/menu-rol.js"></script>
 </body>
 </html>

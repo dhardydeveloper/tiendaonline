@@ -1,417 +1,252 @@
 <!DOCTYPE html>
-<!-- Declara que este documento usa HTML5 -->
 <html lang="es">
-<!-- Etiqueta raíz del documento HTML; lang="es" indica que el idioma del contenido es español (ayuda a accesibilidad y SEO) -->
 
 <head>
-  <!-- Sección de metadatos, no visible directamente en la página -->
   <meta charset="UTF-8">
-  <!-- Define la codificación de caracteres como UTF-8 (soporta tildes, ñ, etc.) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Configura el viewport para que la página sea responsive en dispositivos móviles -->
   <title>Gestión de Productos - AURA Perfumes</title>
-  <!-- Título que aparece en la pestaña del navegador -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Importa una hoja de estilos externa propia del proyecto -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Importa la librería Font Awesome desde un CDN, para poder usar los íconos (fa-solid, etc.) -->
   <style>
-    /* Bloque de estilos CSS internos, específicos para esta página */
-
     body {
       background-color: #f4f6f9;
-      /* Color de fondo gris muy claro para toda la página */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      /* Define la tipografía general del sitio, con alternativas si la primera no está disponible */
     }
 
     .admin-container {
       max-width: 1100px;
-      /* Ancho máximo del contenedor principal del panel */
       margin: 40px auto;
-      /* Separación arriba/abajo de 40px y centrado horizontal automático */
       padding: 30px;
-      /* Espacio interno del contenedor */
       background-color: #ffffff;
-      /* Fondo blanco para la "tarjeta" del panel admin */
       border-radius: 12px;
-      /* Bordes redondeados */
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      /* Sombra suave para dar efecto de elevación */
     }
 
     .admin-header {
       display: flex;
-      /* Usa flexbox para alinear los elementos internos */
       justify-content: space-between;
-      /* Separa el título a la izquierda y el saludo a la derecha */
       align-items: center;
-      /* Centra verticalmente los elementos */
       border-bottom: 2px solid #c5a059;
-      /* Línea inferior dorada como separador visual */
       padding-bottom: 15px;
-      /* Espacio entre el contenido y la línea inferior */
       margin-bottom: 25px;
-      /* Espacio debajo del header antes del siguiente bloque */
     }
 
     .admin-header h2 {
       margin: 0;
-      /* Elimina el margen por defecto del h2 */
       color: #111;
-      /* Color de texto casi negro */
       font-size: 24px;
-      /* Tamaño de fuente del título */
     }
 
     .admin-nav {
       display: flex;
-      /* Los enlaces de navegación se acomodan en fila */
       gap: 12px;
-      /* Espacio entre cada botón de navegación */
       margin-bottom: 30px;
-      /* Espacio debajo del menú de navegación interno */
     }
 
     .admin-nav a {
       text-decoration: none;
-      /* Quita el subrayado típico de los enlaces */
       padding: 10px 20px;
-      /* Espacio interno del botón/enlace */
       background-color: #f8f9fa;
-      /* Fondo gris muy claro por defecto */
       color: #555;
-      /* Color de texto gris oscuro */
       border: 1px solid #e2e8f0;
-      /* Borde sutil */
       border-radius: 6px;
-      /* Bordes redondeados */
       font-weight: 600;
-      /* Texto semi-negrita */
       font-size: 14px;
-      /* Tamaño de fuente */
       transition: all 0.3s ease;
-      /* Suaviza cualquier cambio de estilo (por ejemplo al hacer hover) */
       display: flex;
-      /* Permite alinear ícono + texto dentro del enlace */
       align-items: center;
-      /* Centra verticalmente ícono y texto */
       gap: 8px;
-      /* Espacio entre el ícono y el texto */
     }
 
     .admin-nav a.active, .admin-nav a:hover {
       background-color: #111111;
-      /* Fondo negro cuando el enlace está activo o el mouse pasa por encima */
       color: #c5a059;
-      /* Texto dorado en ese estado */
       border-color: #111111;
-      /* Borde también negro para que combine con el fondo */
     }
 
     .card-seccion {
       background: #fafafa;
-      /* Fondo gris muy claro para las "tarjetas" de sección */
       border: 1px solid #eaeaea;
-      /* Borde sutil alrededor de la tarjeta */
       padding: 25px;
-      /* Espacio interno */
       border-radius: 8px;
-      /* Bordes redondeados */
       margin-bottom: 30px;
-      /* Separación respecto al siguiente bloque */
     }
 
     .card-seccion h3 {
       margin-top: 0;
-      /* Sin margen superior */
       margin-bottom: 20px;
-      /* Espacio debajo del título de la sección */
       color: #222;
-      /* Color de texto oscuro */
       font-size: 18px;
-      /* Tamaño de fuente del título de sección */
       display: flex;
-      /* Para alinear ícono + texto */
       align-items: center;
-      /* Centrado vertical */
       gap: 10px;
-      /* Espacio entre ícono y texto */
     }
 
     .form-admin-producto {
       display: grid;
-      /* El formulario usa un layout de grilla (grid) */
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      /* Crea columnas automáticas de al menos 220px, ajustándose según el ancho disponible */
       gap: 15px;
-      /* Espacio entre celdas de la grilla (filas y columnas) */
     }
 
     .form-group {
       display: flex;
-      /* Cada grupo (label + input) se organiza en columna */
       flex-direction: column;
-      /* Apila el label arriba y el input abajo */
       gap: 6px;
-      /* Pequeño espacio entre label e input */
     }
 
     .form-group label {
       font-size: 13px;
-      /* Tamaño de fuente pequeño para las etiquetas */
       font-weight: 600;
-      /* Semi-negrita */
       color: #555;
-      /* Color gris oscuro */
     }
 
     .form-admin-producto input {
       padding: 11px 14px;
-      /* Espacio interno del campo de texto */
       border: 1px solid #ccc;
-      /* Borde gris claro */
       border-radius: 6px;
-      /* Bordes redondeados */
       font-size: 14px;
-      /* Tamaño de fuente del texto ingresado */
       outline: none;
-      /* Quita el contorno azul por defecto del navegador al hacer foco */
       transition: border-color 0.2s;
-      /* Suaviza el cambio de color del borde al enfocar */
     }
 
     .form-admin-producto input:focus {
       border-color: #c5a059;
-      /* Cuando el input está enfocado, el borde se pone dorado */
     }
 
     .btn-guardar {
       grid-column: 1 / -1;
-      /* Hace que el botón ocupe todo el ancho de la grilla (todas las columnas) */
       background-color: #c5a059;
-      /* Color de fondo dorado, color distintivo de la marca */
       color: #ffffff;
-      /* Texto blanco */
       border: none;
-      /* Sin borde */
       padding: 13px;
-      /* Espacio interno del botón */
       font-weight: bold;
-      /* Texto en negrita */
       font-size: 15px;
-      /* Tamaño de fuente */
       border-radius: 6px;
-      /* Bordes redondeados */
       cursor: pointer;
-      /* Cambia el cursor a "mano" al pasar por encima, indicando que es clickeable */
       transition: background-color 0.3s;
-      /* Transición suave del color de fondo (hover) */
       margin-top: 5px;
-      /* Pequeño espacio arriba del botón */
     }
 
     .btn-guardar:hover {
       background-color: #a38241;
-      /* Al pasar el mouse, el dorado se oscurece un poco */
-    }
-
-    .btn-cancelar {
-      grid-column: 1 / -1;
-      /* También ocupa todo el ancho de la grilla */
-      background-color: #6c757d;
-      /* Fondo gris (color neutro, de "acción secundaria") */
-      color: #ffffff;
-      /* Texto blanco */
-      border: none;
-      /* Sin borde */
-      padding: 10px;
-      /* Espacio interno */
-      font-weight: bold;
-      /* Negrita */
-      font-size: 14px;
-      /* Tamaño de fuente */
-      border-radius: 6px;
-      /* Bordes redondeados */
-      display: none;
-      /* Oculto por defecto; solo se muestra cuando se está editando un producto (vía JS) */
     }
 
     .tabla-productos {
       width: 100%;
-      /* La tabla ocupa todo el ancho disponible */
       border-collapse: separate;
-      /* Los bordes de las celdas no se fusionan (permite border-radius en la tabla) */
       border-spacing: 0;
-      /* Sin espacio entre celdas */
       margin-top: 10px;
-      /* Espacio arriba de la tabla */
       border-radius: 8px;
-      /* Bordes redondeados en la tabla */
       overflow: hidden;
-      /* Recorta cualquier contenido que sobresalga de los bordes redondeados */
       border: 1px solid #eaeaea;
-      /* Borde general de la tabla */
     }
 
     .tabla-productos th, .tabla-productos td {
       padding: 14px 16px;
-      /* Espacio interno de celdas de encabezado y de datos */
       text-align: left;
-      /* Alineación del texto a la izquierda */
       font-size: 14px;
-      /* Tamaño de fuente del contenido de la tabla */
     }
 
     .tabla-productos th {
       background-color: #111111;
-      /* Fondo negro para los encabezados de columna */
       color: #ffffff;
-      /* Texto blanco en los encabezados */
       font-weight: 600;
-      /* Semi-negrita */
     }
 
     .tabla-productos tr:nth-child(even) {
       background-color: #fcfcfc;
-      /* Las filas pares tienen un fondo ligeramente distinto (efecto "cebra") */
     }
 
     .tabla-productos tr:hover {
       background-color: #f5f5f5;
-      /* Resalta la fila cuando el mouse pasa por encima */
     }
 
     .tabla-productos td {
       border-bottom: 1px solid #eee;
-      /* Línea divisoria inferior entre filas */
       color: #333;
-      /* Color de texto de las celdas */
     }
 
     .precio-tag {
       font-weight: bold;
-      /* El precio se muestra en negrita */
       color: #111;
-      /* Color casi negro para destacar el precio */
     }
 
     .btn-accion {
       padding: 7px 14px;
-      /* Espacio interno de los botones de acción (editar/eliminar) */
       border: none;
-      /* Sin borde */
       border-radius: 5px;
-      /* Bordes redondeados */
       cursor: pointer;
-      /* Cursor de mano al pasar por encima */
       font-size: 13px;
-      /* Tamaño de fuente pequeño */
       font-weight: 600;
-      /* Semi-negrita */
       transition: opacity 0.2s;
-      /* Suaviza el cambio de opacidad al hacer hover */
     }
 
     .btn-accion:hover {
       opacity: 0.85;
-      /* Reduce ligeramente la opacidad al pasar el mouse, dando efecto de interacción */
     }
 
     .btn-editar { background-color: #f0ad4e; color: #fff; margin-right: 5px; }
-    /* Botón "Editar": fondo naranja/ámbar, texto blanco, con margen a la derecha para separarlo del botón eliminar */
     .btn-eliminar { background-color: #d9534f; color: #fff; }
-    /* Botón "Eliminar": fondo rojo, texto blanco, para indicar acción destructiva */
   </style>
 </head>
 
 <body>
 
   <!-- MENÚ GENERAL -->
-  <!-- Encabezado de navegación general del sitio (no exclusivo del panel admin) -->
   <header class="menu">
     <div class="logo">
-      <!-- Logo del sitio, enlaza a la página de inicio -->
       <a href="index.html">
         <img src="img/logo_perfume_sin_fondo.png" alt="AURA Perfumes">
-        <!-- Imagen del logo; el atributo alt describe la imagen para accesibilidad -->
       </a>
     </div>
     <nav class="nav">
-      <!-- Enlaces de navegación principal del sitio -->
       <a href="index.html">Inicio</a>
       <a href="productos.html">Productos</a>
-      <a href="admin_productos.html">Panel Admin</a>
+      <a href="admin.html">Panel Admin</a>
       <a href="#" id="btn-cerrar-sesion" style="color: #ff4d4d; font-weight: bold;">Cerrar Sesión</a>
-      <!-- Enlace para cerrar sesión; href="#" porque la acción real la maneja JavaScript -->
-      <!-- id="btn-cerrar-sesion" permite capturarlo desde el script -->
-      <!-- Estilo en línea: texto rojo y en negrita para destacar que es una acción de salida -->
     </nav>
   </header>
 
   <!-- CONTENIDO PANEL DE ADMINISTRACIÓN -->
   <main class="admin-container">
-    <!-- Contenedor principal de todo el panel de administración -->
     <div class="admin-header">
       <h2>Panel de Control - Administrador</h2>
-      <!-- Título principal de la página -->
       <span style="color: #666; font-size: 14px;"><i class="fa-solid fa-circle-user"></i> Bienvenido, Admin</span>
-      <!-- Texto de bienvenida con un ícono de usuario (Font Awesome) -->
     </div>
 
     <!-- Navegación entre tablas del Administrador -->
     <div class="admin-nav">
-      <!-- Menú secundario para moverse entre las distintas secciones del panel admin -->
       <a href="admin_productos.html" class="active"><i class="fa-solid fa-box"></i> Productos</a>
-      <!-- Enlace marcado como "active" porque es la página actual -->
       <a href="admin_roles.html"><i class="fa-solid fa-shield-halved"></i> Roles</a>
       <a href="admin_usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a>
     </div>
 
     <div class="card-seccion">
-      <!-- Tarjeta que contiene el formulario para agregar/editar productos -->
-      <h3 id="formTitulo"><i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto</h3>
-      <!-- Título del formulario; tiene id="formTitulo" porque el texto cambia dinámicamente (Agregar/Editar) vía JS -->
+      <h3><i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto</h3>
       <form class="form-admin-producto" id="formProducto">
-        <!-- Formulario principal; id="formProducto" se usa para capturar el evento "submit" en JS -->
-
-        <!-- Campo oculto para guardar ID cuando se edita -->
-        <input type="hidden" id="productoId">
-        <!-- Campo invisible para el usuario; guarda el ID del producto que se está editando -->
-
         <div class="form-group">
           <label>Nombre del Producto</label>
-          <input type="text" id="nombreProducto" placeholder="Ej. Sauvage Elixir" required>
-          <!-- Campo de texto obligatorio (required) para el nombre del producto -->
+          <input type="text" placeholder="Ej. Sauvage Elixir" required>
         </div>
         <div class="form-group">
           <label>Marca</label>
-          <input type="text" id="marcaProducto" placeholder="Ej. Dior" required>
-          <!-- Campo de texto obligatorio para la marca -->
+          <input type="text" placeholder="Ej. Dior" required>
         </div>
         <div class="form-group">
           <label>Precio ($)</label>
-          <input type="number" id="precioProducto" placeholder="Ej. 129900" required>
-          <!-- Campo numérico obligatorio para el precio -->
+          <input type="number" placeholder="Ej. 129900" required>
         </div>
         <div class="form-group">
           <label>Ruta de Imagen</label>
-          <input type="text" id="imagenProducto" placeholder="img/sauvage.jpg" required>
-          <!-- Campo de texto obligatorio para indicar la ruta/archivo de la imagen del producto -->
+          <input type="text" placeholder="img/sauvage.jpg" required>
         </div>
-        <button type="submit" class="btn-guardar" id="btnGuardar"><i class="fa-solid fa-floppy-disk"></i> Guardar Producto</button>
-        <!-- Botón que envía el formulario (type="submit"), dispara el evento "submit" capturado en JS -->
-        <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar Edición</button>
-        <!-- Botón tipo "button" (no envía el formulario), usado para cancelar una edición en curso; oculto por defecto -->
+        <button type="submit" class="btn-guardar"><i class="fa-solid fa-floppy-disk"></i> Guardar Producto</button>
       </form>
     </div>
 
     <div class="card-seccion" style="background: transparent; border: none; padding: 0;">
-      <!-- Segunda tarjeta, pero con estilo en línea que anula el fondo/borde/padding para que se vea "plana" -->
       <h3 style="margin-bottom: 15px;"><i class="fa-solid fa-list" style="color: #c5a059;"></i> Inventario de Productos</h3>
-      <!-- Título de la tabla de productos -->
       <table class="tabla-productos">
-        <!-- Tabla que lista todos los productos registrados -->
         <thead>
           <tr>
             <th>ID</th>
@@ -419,12 +254,29 @@
             <th>Marca</th>
             <th>Precio</th>
             <th style="text-align: center;">Acciones</th>
-            <!-- Columna de acciones centrada, donde irán los botones Editar/Eliminar -->
           </tr>
         </thead>
-        <tbody id="tablaBody">
-          <!-- Carga dinámicamente -->
-          <!-- El cuerpo de la tabla está vacío en el HTML; JavaScript lo llena dinámicamente con los productos -->
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><b>Perfume Elegance Gold</b></td>
+            <td>AURA</td>
+            <td class="precio-tag">$45.000</td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>Eau de Parfum Noir</b></td>
+            <td>AURA</td>
+            <td class="precio-tag">$52.000</td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -432,236 +284,23 @@
 
   <footer>
     <p>&copy; 2026 AURA Perfumes - Panel de Administración</p>
-    <!-- Pie de página con el símbolo de copyright (&copy;) y el año -->
   </footer>
 
   <script>
-    // Bloque de JavaScript que le da funcionalidad dinámica a toda la página
-
     document.addEventListener('DOMContentLoaded', () => {
-      // Espera a que todo el HTML esté completamente cargado antes de ejecutar el código
-
-      // 1. Verificación de Seguridad y Sesión
       const userRole = localStorage.getItem('userRole');
-      // Obtiene el rol del usuario guardado en el almacenamiento local del navegador
+      
       if (userRole !== 'admin') {
-        // Si el rol no es "admin"...
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
-        // Muestra una alerta indicando que no tiene permiso
         window.location.href = 'login.html';
-        // Redirige al usuario a la página de login
-        return;
-        // Detiene la ejecución del resto del script (protección básica de acceso)
       }
 
       document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
-        // Escucha el clic en el enlace "Cerrar Sesión"
         e.preventDefault();
-        // Evita que el navegador siga el enlace "#" (comportamiento por defecto del <a>)
         localStorage.clear();
-        // Borra todos los datos guardados en localStorage (incluye userRole, productos, etc.)
         alert('Sesión cerrada correctamente.');
-        // Muestra confirmación al usuario
         window.location.href = 'login.html';
-        // Redirige a la página de login
       });
-
-      // 2. Datos base iniciales
-      const productosIniciales = [
-        // Arreglo con productos de ejemplo que se usan si no hay datos guardados aún
-        { id: 1, nombre: 'Perfume Elegance Gold', marca: 'AURA', precio: 45000, imagen: 'img/elegance.jpg' },
-        { id: 2, nombre: 'Eau de Parfum Noir', marca: 'AURA', precio: 52000, imagen: 'img/noir.jpg' }
-      ];
-
-      function obtenerProductos() {
-        // Función que obtiene la lista de productos, ya sea desde localStorage o los datos iniciales
-        const guardados = localStorage.getItem('productos');
-        // Intenta leer los productos guardados previamente
-        if (!guardados) {
-          // Si no existe nada guardado todavía...
-          localStorage.setItem('productos', JSON.stringify(productosIniciales));
-          // Guarda los productos iniciales como punto de partida
-          return productosIniciales;
-          // Devuelve esos productos iniciales
-        }
-        return JSON.parse(guardados);
-        // Si ya había datos guardados, los convierte de texto (JSON) a objeto/array de JavaScript y los devuelve
-      }
-
-      function guardarProductos(productos) {
-        // Función que guarda el arreglo de productos actualizado en localStorage
-        localStorage.setItem('productos', JSON.stringify(productos));
-        // Convierte el arreglo a texto JSON antes de guardarlo (localStorage solo guarda strings)
-      }
-
-      // 3. Referencias del DOM
-      const form = document.getElementById('formProducto');
-      // Referencia al formulario completo
-      const productoIdInput = document.getElementById('productoId');
-      // Referencia al campo oculto que guarda el ID en edición
-      const nombreInput = document.getElementById('nombreProducto');
-      // Referencia al input del nombre
-      const marcaInput = document.getElementById('marcaProducto');
-      // Referencia al input de la marca
-      const precioInput = document.getElementById('precioProducto');
-      // Referencia al input del precio
-      const imagenInput = document.getElementById('imagenProducto');
-      // Referencia al input de la ruta de imagen
-      const tablaBody = document.getElementById('tablaBody');
-      // Referencia al cuerpo de la tabla donde se renderizan los productos
-      const btnGuardar = document.getElementById('btnGuardar');
-      // Referencia al botón de guardar/actualizar
-      const btnCancelar = document.getElementById('btnCancelar');
-      // Referencia al botón de cancelar edición
-      const formTitulo = document.getElementById('formTitulo');
-      // Referencia al título del formulario (para cambiar el texto dinámicamente)
-
-      // 4. Renderizar tabla de productos
-      function renderizarTabla() {
-        // Función encargada de dibujar (pintar) la tabla de productos en el HTML
-        const productos = obtenerProductos();
-        // Obtiene la lista actual de productos
-        tablaBody.innerHTML = '';
-        // Limpia el contenido actual de la tabla antes de volver a construirla
-
-        if (productos.length === 0) {
-          // Si no hay ningún producto registrado...
-          tablaBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay productos registrados.</td></tr>';
-          // Muestra una fila indicando que la tabla está vacía (colspan="5" para ocupar todas las columnas)
-          return;
-          // Termina la función aquí, no sigue construyendo filas
-        }
-
-        productos.forEach(prod => {
-          // Recorre cada producto del arreglo
-          const tr = document.createElement('tr');
-          // Crea una nueva fila <tr> por cada producto
-          tr.innerHTML = `
-            <td>${prod.id}</td>
-            <td><b>${prod.nombre}</b></td>
-            <td>${prod.marca}</td>
-            <td class="precio-tag">$${Number(prod.precio).toLocaleString('es-CL')}</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar" onclick="prepararEdicion(${prod.id})"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar" onclick="eliminarProducto(${prod.id})"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          `;
-          // Rellena la fila con: ID, nombre en negrita, marca, precio formateado en formato chileno (es-CL),
-          // y los botones de Editar/Eliminar, cada uno con su onclick llamando a las funciones globales correspondientes,
-          // pasando el id del producto como parámetro
-          tablaBody.appendChild(tr);
-          // Agrega la fila recién creada al cuerpo de la tabla
-        });
-      }
-
-      // 5. Agregar / Editar Producto
-      form.addEventListener('submit', (e) => {
-        // Escucha el evento de envío del formulario (al hacer clic en "Guardar Producto")
-        e.preventDefault();
-        // Evita que la página se recargue (comportamiento por defecto de los formularios)
-        let productos = obtenerProductos();
-        // Obtiene la lista actual de productos
-        const id = productoIdInput.value;
-        // Lee el valor del campo oculto (si tiene valor, significa que se está editando)
-        const nombre = nombreInput.value.trim();
-        // Lee y limpia espacios en blanco del nombre ingresado
-        const marca = marcaInput.value.trim();
-        // Lee y limpia espacios en blanco de la marca ingresada
-        const precio = parseFloat(precioInput.value);
-        // Convierte el valor del precio (texto) a número decimal
-        const imagen = imagenInput.value.trim();
-        // Lee y limpia espacios en blanco de la ruta de imagen
-
-        if (id) {
-          // Si existe un id en el campo oculto, significa que se está EDITANDO un producto existente
-          productos = productos.map(p => p.id == id ? { id: Number(id), nombre, marca, precio, imagen } : p);
-          // Recorre todos los productos y reemplaza el que coincide con el id por los nuevos datos; el resto queda igual
-          alert('Producto actualizado correctamente');
-          // Notifica al usuario que la edición fue exitosa
-        } else {
-          // Si no hay id, significa que se está CREANDO un producto nuevo
-          const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
-          // Calcula un nuevo id: el mayor id existente + 1, o 1 si no hay productos todavía
-          productos.push({ id: nuevoId, nombre, marca, precio, imagen });
-          // Agrega el nuevo producto al arreglo
-          alert('Producto guardado correctamente');
-          // Notifica al usuario que se guardó correctamente
-        }
-
-        guardarProductos(productos);
-        // Guarda el arreglo actualizado (con la edición o el nuevo producto) en localStorage
-        limpiarFormulario();
-        // Limpia el formulario y lo deja listo para un nuevo registro
-        renderizarTabla();
-        // Vuelve a dibujar la tabla con los datos actualizados
-      });
-
-      // 6. Cargar datos en formulario para Editar
-      window.prepararEdicion = function(id) {
-        // Función global (por eso "window.") llamada desde el botón "Editar" de cada fila
-        const productos = obtenerProductos();
-        // Obtiene la lista de productos actual
-        const prod = productos.find(p => p.id === id);
-        // Busca el producto específico que coincide con el id recibido
-        if (prod) {
-          // Si el producto existe...
-          productoIdInput.value = prod.id;
-          // Coloca el id del producto en el campo oculto (esto activa el "modo edición" en el submit)
-          nombreInput.value = prod.nombre;
-          // Rellena el campo de nombre con el valor actual del producto
-          marcaInput.value = prod.marca;
-          // Rellena el campo de marca
-          precioInput.value = prod.precio;
-          // Rellena el campo de precio
-          imagenInput.value = prod.imagen || '';
-          // Rellena el campo de imagen; si no tiene imagen, deja el campo vacío
-
-          formTitulo.innerHTML = '<i class="fa-solid fa-pen-to-square" style="color: #c5a059;"></i> Editar Producto';
-          // Cambia el título del formulario para indicar que ahora se está editando
-          btnGuardar.innerHTML = '<i class="fa-solid fa-rotate"></i> Actualizar Producto';
-          // Cambia el texto/ícono del botón principal a "Actualizar Producto"
-          btnCancelar.style.display = 'block';
-          // Muestra el botón "Cancelar Edición", que estaba oculto por defecto
-        }
-      };
-
-      // 7. Eliminar Producto
-      window.eliminarProducto = function(id) {
-        // Función global llamada desde el botón "Eliminar" de cada fila
-        if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-          // Muestra un cuadro de confirmación; solo continúa si el usuario acepta
-          let productos = obtenerProductos();
-          // Obtiene la lista actual de productos
-          productos = productos.filter(p => p.id !== id);
-          // Crea un nuevo arreglo excluyendo el producto cuyo id coincide con el recibido
-          guardarProductos(productos);
-          // Guarda la lista ya sin ese producto
-          renderizarTabla();
-          // Vuelve a dibujar la tabla actualizada
-        }
-      };
-
-      // 8. Cancelar Edición
-      btnCancelar.addEventListener('click', limpiarFormulario);
-      // Al hacer clic en "Cancelar Edición", se ejecuta la función limpiarFormulario
-
-      function limpiarFormulario() {
-        // Función que resetea el formulario a su estado inicial (modo "Agregar")
-        form.reset();
-        // Limpia visualmente todos los campos del formulario
-        productoIdInput.value = '';
-        // Vacía el campo oculto del id (para que el próximo submit sea una creación, no una edición)
-        formTitulo.innerHTML = '<i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto';
-        // Restaura el título original del formulario
-        btnGuardar.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar Producto';
-        // Restaura el texto/ícono original del botón principal
-        btnCancelar.style.display = 'none';
-        // Oculta nuevamente el botón "Cancelar Edición"
-      }
-
-      // Carga inicial al ingresar
-      renderizarTabla();
-      // Al cargar la página por primera vez, dibuja la tabla con los productos existentes
     });
   </script>
 

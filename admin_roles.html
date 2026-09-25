@@ -132,19 +132,6 @@
       background-color: #a38241;
     }
 
-    .btn-cancelar {
-      grid-column: 1 / -1;
-      background-color: #6c757d;
-      color: #ffffff;
-      border: none;
-      padding: 10px;
-      font-weight: bold;
-      font-size: 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: none;
-    }
-
     .tabla-roles {
       width: 100%;
       border-collapse: separate;
@@ -245,29 +232,25 @@
 
     <!-- FORMULARIO CREAR ROL -->
     <div class="card-seccion">
-      <h3 id="formTitulo"><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Crear Nuevo Rol de Sistema</h3>
+      <h3><i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Crear Nuevo Rol de Sistema</h3>
       <form class="form-admin-rol" id="formRol">
-        <!-- Campo oculto para almacenar el ID cuando se edita -->
-        <input type="hidden" id="rolId">
-
         <div class="form-group">
           <label>Nombre del Rol</label>
-          <input type="text" id="nombreRol" placeholder="Ej. Vendedor, Supervisor" required>
+          <input type="text" placeholder="Ej. Vendedor, Supervisor" required>
         </div>
         <div class="form-group">
           <label>Descripción Breve</label>
-          <input type="text" id="descripcionRol" placeholder="Ej. Acceso a ventas e inventario" required>
+          <input type="text" placeholder="Ej. Acceso a ventas e inventario" required>
         </div>
         <div class="form-group">
           <label>Nivel de Permisos</label>
-          <select id="nivelPermisos" required>
+          <select required>
             <option value="total">Acceso Total</option>
             <option value="edicion">Gestión e Inventario</option>
             <option value="lectura">Solo Lectura</option>
           </select>
         </div>
-        <button type="submit" class="btn-guardar" id="btnGuardar"><i class="fa-solid fa-plus-circle"></i> Crear Rol</button>
-        <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar Edición</button>
+        <button type="submit" class="btn-guardar"><i class="fa-solid fa-plus-circle"></i> Crear Rol</button>
       </form>
     </div>
 
@@ -284,8 +267,35 @@
             <th style="text-align: center;">Acciones</th>
           </tr>
         </thead>
-        <tbody id="tablaRolesBody">
-          <!-- Carga dinámicamente desde JS / localStorage -->
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><b>Administrador</b></td>
+            <td>Acceso total al sistema y configuraciones.</td>
+            <td>
+              <span class="badge-permiso">Crear</span>
+              <span class="badge-permiso">Editar</span>
+              <span class="badge-permiso">Eliminar</span>
+              <span class="badge-permiso">Ver</span>
+            </td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>Cliente</b></td>
+            <td>Acceso al catálogo y al carrito de compras.</td>
+            <td>
+              <span class="badge-permiso">Ver</span>
+              <span class="badge-permiso">Comprar</span>
+            </td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -296,250 +306,20 @@
   </footer>
 
   <script>
-    // Se ejecuta al completarse la carga de la estructura HTML
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Control de acceso
-      // Recupera el rol de usuario almacenado en localStorage
       const userRole = localStorage.getItem('userRole');
-      // Verifica si el usuario actual NO es administrador
+      
       if (userRole !== 'admin') {
-        // Muestra alerta informando la restricción
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
-        // Redirige al inicio de sesión
         window.location.href = 'login.html';
-        // Interrumpe la ejecución del código JS
-        return;
       }
 
-      // Asigna evento de clic para el botón de cerrar sesión
       document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
-        // Cancela la navegación predeterminada del enlace
         e.preventDefault();
-        // Borra los datos almacenados en localStorage
         localStorage.clear();
-        // Muestra notificación de confirmación
         alert('Sesión cerrada correctamente.');
-        // Redirecciona al usuario al login
         window.location.href = 'login.html';
       });
-
-      // 2. Datos iniciales por defecto (si localStorage está vacío)
-      // Arreglo con la configuración inicial de roles por defecto
-      const rolesIniciales = [
-        { 
-          id: 1, 
-          nombre: 'Administrador', 
-          descripcion: 'Acceso total al sistema y configuraciones.', 
-          nivel: 'total',
-          permisos: ['Crear', 'Editar', 'Eliminar', 'Ver'] 
-        },
-        { 
-          id: 2, 
-          nombre: 'Cliente', 
-          descripcion: 'Acceso al catálogo y al carrito de compras.', 
-          nivel: 'lectura',
-          permisos: ['Ver', 'Comprar'] 
-        }
-      ];
-
-      // Función para obtener la lista de roles
-      function obtenerRoles() {
-        // Consulta los roles en localStorage
-        const guardados = localStorage.getItem('roles');
-        // Si no existen roles guardados aún
-        if (!guardados) {
-          // Asigna e inicializa en localStorage los roles iniciales convertidos a JSON
-          localStorage.setItem('roles', JSON.stringify(rolesIniciales));
-          // Retorna los roles base
-          return rolesIniciales;
-        }
-        // Convierte el JSON string recuperado en un objeto/arreglo JS
-        return JSON.parse(guardados);
-      }
-
-      // Función para guardar el estado actual de los roles en localStorage
-      function guardarRoles(roles) {
-        // Almacena el arreglo formateado como string JSON
-        localStorage.setItem('roles', JSON.stringify(roles));
-      }
-
-      // Elementos del DOM
-      // Referencia del formulario de roles
-      const form = document.getElementById('formRol');
-      // Referencia del input oculto de ID
-      const rolIdInput = document.getElementById('rolId');
-      // Referencia del input de nombre del rol
-      const nombreInput = document.getElementById('nombreRol');
-      // Referencia del input de descripción
-      const descripcionInput = document.getElementById('descripcionRol');
-      // Referencia del selector de niveles
-      const nivelSelect = document.getElementById('nivelPermisos');
-      // Referencia del cuerpo de la tabla de roles
-      const tablaBody = document.getElementById('tablaRolesBody');
-      // Referencia del botón guardar
-      const btnGuardar = document.getElementById('btnGuardar');
-      // Referencia del botón cancelar
-      const btnCancelar = document.getElementById('btnCancelar');
-      // Referencia del título dinámico del formulario
-      const formTitulo = document.getElementById('formTitulo');
-
-      // Mapea el select de niveles a etiquetas de permisos visibles
-      // Recibe la clave del nivel y retorna un arreglo con las acciones permitidas
-      function obtenerBadgesPermisos(nivel) {
-        // Retorna permisos completos para nivel total
-        if (nivel === 'total') return ['Crear', 'Editar', 'Eliminar', 'Ver'];
-        // Retorna permisos intermedios para gestión
-        if (nivel === 'edicion') return ['Ver', 'Crear', 'Editar'];
-        // Retorna permisos básicos para solo lectura
-        return ['Ver', 'Comprar'];
-      }
-
-      // Renderiza los roles en la tabla
-      // Función que genera dinámicamente las filas HTML de los roles
-      function renderizarTabla() {
-        // Obtiene el conjunto actual de roles
-        const roles = obtenerRoles();
-        // Vacía la tabla antes de renderizar
-        tablaBody.innerHTML = '';
-
-        // Comprueba si no hay registros
-        if (roles.length === 0) {
-          // Imprime fila avisando la falta de roles registrados
-          tablaBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay roles registrados.</td></tr>';
-          // Detiene el proceso de renderizado
-          return;
-        }
-
-        // Recorre iterativamente cada objeto de rol
-        roles.forEach(rol => {
-          // Crea un elemento HTML tr (fila)
-          const tr = document.createElement('tr');
-          // Genera el conjunto de etiquetas tipo badge para mostrar los permisos asignados
-          const badgesHTML = rol.permisos.map(p => `<span class="badge-permiso">${p}</span>`).join(' ');
-
-          // Asigna la estructura e información a las celdas de la fila
-          tr.innerHTML = `
-            <td>${rol.id}</td>
-            <td><b>${rol.nombre}</b></td>
-            <td>${rol.descripcion}</td>
-            <td>${badgesHTML}</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar" onclick="prepararEdicion(${rol.id})"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar" onclick="eliminarRol(${rol.id})"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          `;
-          // Inserta la fila dentro de la tabla
-          tablaBody.appendChild(tr);
-        });
-      }
-
-      // Guardar o Actualizar Rol
-      // Escucha la acción de enviar el formulario
-      form.addEventListener('submit', (e) => {
-        // Evita el envío tradicional y recarga de página
-        e.preventDefault();
-        // Carga los roles existentes
-        let roles = obtenerRoles();
-        // Extrae el ID del campo oculto
-        const id = rolIdInput.value;
-        // Obtiene y limpia el texto del nombre
-        const nombre = nombreInput.value.trim();
-        // Obtiene y limpia el texto de la descripción
-        const descripcion = descripcionInput.value.trim();
-        // Recupera el valor seleccionado en el nivel de permisos
-        const nivel = nivelSelect.value;
-        // Obtiene el array de permisos en base al nivel elegido
-        const permisos = obtenerBadgesPermisos(nivel);
-
-        // Evalúa si el formulario contiene un ID existente (Edición)
-        if (id) {
-          // Edición
-          // Actualiza las propiedades del rol coincidente
-          roles = roles.map(r => r.id == id ? { id: Number(id), nombre, descripcion, nivel, permisos } : r);
-          // Alerta al usuario sobre la actualización
-          alert('Rol actualizado exitosamente');
-        } else {
-          // Creación de nuevo rol
-          // Determina el id correlativo consultando el valor máximo o inicializa en 1
-          const nuevoId = roles.length > 0 ? Math.max(...roles.map(r => r.id)) + 1 : 1;
-          // Añade el objeto nuevo al array de roles
-          roles.push({ id: nuevoId, nombre, descripcion, nivel, permisos });
-          // Muestra mensaje de confirmación
-          alert('Rol creado exitosamente');
-        }
-
-        // Guarda el estado en localStorage
-        guardarRoles(roles);
-        // Resetea el formulario al estado por defecto
-        limpiarFormulario();
-        // Reconstruye la vista de la tabla
-        renderizarTabla();
-      });
-
-      // Cargar datos en el formulario para editar
-      // Define la función global para preparar el formulario con la información del rol seleccionado
-      window.prepararEdicion = function(id) {
-        // Obtiene los roles almacenados
-        const roles = obtenerRoles();
-        // Busca el rol correspondiente mediante su id
-        const rol = roles.find(r => r.id === id);
-        // Si el rol es encontrado
-        if (rol) {
-          // Coloca el ID en el campo oculto
-          rolIdInput.value = rol.id;
-          // Asigna el nombre al input
-          nombreInput.value = rol.nombre;
-          // Asigna la descripción al input
-          descripcionInput.value = rol.descripcion;
-          // Asigna la opción de nivel o establece 'lectura' si no cuenta con uno
-          nivelSelect.value = rol.nivel || 'lectura';
-
-          // Cambia el título del formulario a modo edición
-          formTitulo.innerHTML = '<i class="fa-solid fa-pen-to-square" style="color: #c5a059;"></i> Editar Rol de Sistema';
-          // Modifica el texto del botón principal
-          btnGuardar.innerHTML = '<i class="fa-solid fa-rotate"></i> Actualizar Rol';
-          // Hace visible el botón de cancelar
-          btnCancelar.style.display = 'block';
-        }
-      };
-
-      // Eliminar Rol
-      // Define la función global para borrar registros por su ID
-      window.eliminarRol = function(id) {
-        // Muestra cuadro de diálogo pidiendo confirmación
-        if (confirm('¿Estás seguro de eliminar este rol?')) {
-          // Obtiene los roles guardados
-          let roles = obtenerRoles();
-          // Excluye el rol que coincida con el ID enviado
-          roles = roles.filter(r => r.id !== id);
-          // Sobrescribe los roles en el almacenamiento local
-          guardarRoles(roles);
-          // Vuelve a pintar la tabla
-          renderizarTabla();
-        }
-      };
-
-      // Resetear el formulario
-      // Vincula la función de limpieza al botón cancelar
-      btnCancelar.addEventListener('click', limpiarFormulario);
-
-      // Función encarga de restablecer todos los controles del formulario
-      function limpiarFormulario() {
-        // Borra las entradas de los campos
-        form.reset();
-        // Vacía el input oculto de ID
-        rolIdInput.value = '';
-        // Restaura el título original del formulario
-        formTitulo.innerHTML = '<i class="fa-solid fa-user-plus" style="color: #c5a059;"></i> Crear Nuevo Rol de Sistema';
-        // Restaura el botón a su acción inicial
-        btnGuardar.innerHTML = '<i class="fa-solid fa-plus-circle"></i> Crear Rol';
-        // Oculta el botón de cancelar edición
-        btnCancelar.style.display = 'none';
-      }
-
-      // Carga inicial de datos
-      // Llama a la función para cargar la tabla al abrir el sitio
-      renderizarTabla();
     });
   </script>
 
