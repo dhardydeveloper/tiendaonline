@@ -52,7 +52,8 @@ if (!producto) {
 
         agregarAlCarrito(
     producto.nombre,
-    producto.precio
+    producto.precio,
+    cantidad
 );
 
     });
