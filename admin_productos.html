@@ -133,6 +133,19 @@
       background-color: #a38241;
     }
 
+    .btn-cancelar {
+      grid-column: 1 / -1;
+      background-color: #6c757d;
+      color: #ffffff;
+      border: none;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+    }
+
     .tabla-productos {
       width: 100%;
       border-collapse: separate;
@@ -204,7 +217,7 @@
     <nav class="nav">
       <a href="index.html">Inicio</a>
       <a href="productos.html">Productos</a>
-      <a href="admin.html">Panel Admin</a>
+      <a href="admin_productos.html">Panel Admin</a>
       <a href="#" id="btn-cerrar-sesion" style="color: #ff4d4d; font-weight: bold;">Cerrar Sesión</a>
     </nav>
   </header>
@@ -224,25 +237,29 @@
     </div>
 
     <div class="card-seccion">
-      <h3><i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto</h3>
+      <h3 id="formTitulo"><i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto</h3>
       <form class="form-admin-producto" id="formProducto">
+        <!-- Campo oculto para guardar ID cuando se edita -->
+        <input type="hidden" id="productoId">
+
         <div class="form-group">
           <label>Nombre del Producto</label>
-          <input type="text" placeholder="Ej. Sauvage Elixir" required>
+          <input type="text" id="nombreProducto" placeholder="Ej. Sauvage Elixir" required>
         </div>
         <div class="form-group">
           <label>Marca</label>
-          <input type="text" placeholder="Ej. Dior" required>
+          <input type="text" id="marcaProducto" placeholder="Ej. Dior" required>
         </div>
         <div class="form-group">
           <label>Precio ($)</label>
-          <input type="number" placeholder="Ej. 129900" required>
+          <input type="number" id="precioProducto" placeholder="Ej. 129900" required>
         </div>
         <div class="form-group">
           <label>Ruta de Imagen</label>
-          <input type="text" placeholder="img/sauvage.jpg" required>
+          <input type="text" id="imagenProducto" placeholder="img/sauvage.jpg" required>
         </div>
-        <button type="submit" class="btn-guardar"><i class="fa-solid fa-floppy-disk"></i> Guardar Producto</button>
+        <button type="submit" class="btn-guardar" id="btnGuardar"><i class="fa-solid fa-floppy-disk"></i> Guardar Producto</button>
+        <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar Edición</button>
       </form>
     </div>
 
@@ -258,27 +275,8 @@
             <th style="text-align: center;">Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><b>Perfume Elegance Gold</b></td>
-            <td>AURA</td>
-            <td class="precio-tag">$45.000</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><b>Eau de Parfum Noir</b></td>
-            <td>AURA</td>
-            <td class="precio-tag">$52.000</td>
-            <td style="text-align: center;">
-              <button class="btn-accion btn-editar"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-              <button class="btn-accion btn-eliminar"><i class="fa-solid fa-trash"></i> Eliminar</button>
-            </td>
-          </tr>
+        <tbody id="tablaBody">
+          <!-- Carga dinámicamente -->
         </tbody>
       </table>
     </div>
@@ -290,11 +288,12 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. Verificación de Seguridad y Sesión
       const userRole = localStorage.getItem('userRole');
-      
       if (userRole !== 'admin') {
         alert('Acceso denegado. Debe iniciar sesión como Administrador.');
         window.location.href = 'login.html';
+        return;
       }
 
       document.getElementById('btn-cerrar-sesion').addEventListener('click', (e) => {
@@ -303,6 +302,130 @@
         alert('Sesión cerrada correctamente.');
         window.location.href = 'login.html';
       });
+
+      // 2. Datos base iniciales
+      const productosIniciales = [
+        { id: 1, nombre: 'Perfume Elegance Gold', marca: 'AURA', precio: 45000, imagen: 'img/elegance.jpg' },
+        { id: 2, nombre: 'Eau de Parfum Noir', marca: 'AURA', precio: 52000, imagen: 'img/noir.jpg' }
+      ];
+
+      function obtenerProductos() {
+        const guardados = localStorage.getItem('productos');
+        if (!guardados) {
+          localStorage.setItem('productos', JSON.stringify(productosIniciales));
+          return productosIniciales;
+        }
+        return JSON.parse(guardados);
+      }
+
+      function guardarProductos(productos) {
+        localStorage.setItem('productos', JSON.stringify(productos));
+      }
+
+      // 3. Referencias del DOM
+      const form = document.getElementById('formProducto');
+      const productoIdInput = document.getElementById('productoId');
+      const nombreInput = document.getElementById('nombreProducto');
+      const marcaInput = document.getElementById('marcaProducto');
+      const precioInput = document.getElementById('precioProducto');
+      const imagenInput = document.getElementById('imagenProducto');
+      const tablaBody = document.getElementById('tablaBody');
+      const btnGuardar = document.getElementById('btnGuardar');
+      const btnCancelar = document.getElementById('btnCancelar');
+      const formTitulo = document.getElementById('formTitulo');
+
+      // 4. Renderizar tabla de productos
+      function renderizarTabla() {
+        const productos = obtenerProductos();
+        tablaBody.innerHTML = '';
+
+        if (productos.length === 0) {
+          tablaBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay productos registrados.</td></tr>';
+          return;
+        }
+
+        productos.forEach(prod => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${prod.id}</td>
+            <td><b>${prod.nombre}</b></td>
+            <td>${prod.marca}</td>
+            <td class="precio-tag">$${Number(prod.precio).toLocaleString('es-CL')}</td>
+            <td style="text-align: center;">
+              <button class="btn-accion btn-editar" onclick="prepararEdicion(${prod.id})"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+              <button class="btn-accion btn-eliminar" onclick="eliminarProducto(${prod.id})"><i class="fa-solid fa-trash"></i> Eliminar</button>
+            </td>
+          `;
+          tablaBody.appendChild(tr);
+        });
+      }
+
+      // 5. Agregar / Editar Producto
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let productos = obtenerProductos();
+        const id = productoIdInput.value;
+        const nombre = nombreInput.value.trim();
+        const marca = marcaInput.value.trim();
+        const precio = parseFloat(precioInput.value);
+        const imagen = imagenInput.value.trim();
+
+        if (id) {
+          // Editar producto existente
+          productos = productos.map(p => p.id == id ? { id: Number(id), nombre, marca, precio, imagen } : p);
+          alert('Producto actualizado correctamente');
+        } else {
+          // Crear nuevo producto
+          const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+          productos.push({ id: nuevoId, nombre, marca, precio, imagen });
+          alert('Producto guardado correctamente');
+        }
+
+        guardarProductos(productos);
+        limpiarFormulario();
+        renderizarTabla();
+      });
+
+      // 6. Cargar datos en formulario para Editar
+      window.prepararEdicion = function(id) {
+        const productos = obtenerProductos();
+        const prod = productos.find(p => p.id === id);
+        if (prod) {
+          productoIdInput.value = prod.id;
+          nombreInput.value = prod.nombre;
+          marcaInput.value = prod.marca;
+          precioInput.value = prod.precio;
+          imagenInput.value = prod.imagen || '';
+
+          formTitulo.innerHTML = '<i class="fa-solid fa-pen-to-square" style="color: #c5a059;"></i> Editar Producto';
+          btnGuardar.innerHTML = '<i class="fa-solid fa-rotate"></i> Actualizar Producto';
+          btnCancelar.style.display = 'block';
+        }
+      };
+
+      // 7. Eliminar Producto
+      window.eliminarProducto = function(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+          let productos = obtenerProductos();
+          productos = productos.filter(p => p.id !== id);
+          guardarProductos(productos);
+          renderizarTabla();
+        }
+      };
+
+      // 8. Cancelar Edición
+      btnCancelar.addEventListener('click', limpiarFormulario);
+
+      function limpiarFormulario() {
+        form.reset();
+        productoIdInput.value = '';
+        formTitulo.innerHTML = '<i class="fa-solid fa-plus-circle" style="color: #c5a059;"></i> Añadir Nuevo Producto';
+        btnGuardar.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar Producto';
+        btnCancelar.style.display = 'none';
+      }
+
+      // Carga inicial al ingresar
+      renderizarTabla();
     });
   </script>
 
